@@ -2,17 +2,113 @@
 
 const db = require('../server/db')
 const {User} = require('../server/db/models')
+const {Product, Category, Inventory, Order, OrderData, Review} = require('../server/db/models')
 
 async function seed() {
   await db.sync({force: true})
   console.log('db synced!')
 
   const users = await Promise.all([
-    User.create({email: 'cody@email.com', password: '123'}),
-    User.create({email: 'murphy@email.com', password: '123'})
+    User.create({
+      firstName: 'Hat',
+      lastName: 'Lady',
+      username: 'hatlover123',
+      email: 'ilovehats@aol.com',
+      password: 'abc123',
+      isAdmin: false,
+      accountActivity: true
+  }),
+  User.create({
+    firstName: 'Shoe',
+    lastName: 'Guy',
+    username: 'theshoedude',
+    email: 'shoe4u@hotmail.com',
+    password: 'shoe12',
+    isAdmin: true,
+    accountActivity: true
+}),
   ])
-
   console.log(`seeded ${users.length} users`)
+
+  const products = await Promise.all([
+    Product.create({
+      name: 'Hat',
+      description: 'A hat to wear on your head.',
+      Price: 9.99,
+      imageUrl: 'https://images-na.ssl-images-amazon.com/images/I/71odJc-Sd2L._UX385_.jpg'
+    }),
+    Product.create({
+      name: 'Shoes',
+      description: 'A pair of shoes to wear on your feet.',
+      Price: 29.50
+    })
+  ])
+  console.log(`seeded ${products.length} products`)
+
+  const categories = await Promise.all([
+    Category.create({name: 'hats'}),
+    Category.create({name: 'shoes'})
+  ])
+  console.log(`seeded ${categories.length} categories`)
+
+  const inventoryData = await Promise.all([
+    Inventory.create({
+      size: 'large',
+      quantity: 3
+    }),
+    Inventory.create({
+      size: '10',
+      quantity: 1
+    }),
+    Inventory.create({
+      size: '8.5',
+      quantity: 2
+    })
+  ])
+  console.log(`seeded ${inventoryData.length} rows of inventory`)
+
+  const orders = await Promise.all([
+    Order.create({
+      date: new Date(),
+      isRegistered: true,
+      submitted: true,
+      status: 'processing'
+    }),
+    Order.create({
+      date: new Date(),
+      isRegistered: false,
+      submitted: false,
+      status: 'created'
+    })
+  ])
+  console.log(`seeded ${orders.length} orders`)
+
+  const orderDataSeed = await Promise.all([
+    OrderData.create({
+      quantity: 1,
+      isOrdered: true,
+      price: 9.99
+    }),
+    OrderData.create({
+      quantity: 1,
+      isOrdered: false,
+      price: 29.50
+    })
+  ])
+  console.log(`seeded ${orderDataSeed.length} rows of orderData`)
+
+  const reviews = await Promise.all([
+    Review.create({
+      text: 'This hat is awesome. I love this hat. I wear this hat on my head, I wear this hat in bed. I wear this hat when I am cold, I will wear this hat when I am hold.',
+      stars: 5
+    }),
+    Review.create({
+      text: 'The left shoe is more comfortable than the right shoe. Both shoes are comfortable. I like to wear them on my feet.',
+      stars: 4
+    })
+  ])
+  console.log(`seeded ${reviews.length} reviews`)
+
   console.log(`seeded successfully`)
 }
 
