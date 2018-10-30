@@ -15,3 +15,44 @@ router.get('/', async (req, res, next) => {
     next(err)
   }
 })
+
+router.post('/', async (req, res, next) => {
+  try {
+    const user = await User.create(req.body)
+    res.status(201)
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.get('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const user = await User.findById(id, {attributes: ['id', 'email']})
+    res.json(user)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    const product = req.body
+    const {data} = await User.update(product, {where: {id}})
+    res.json(data)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    const id = req.params.id
+    await User.destroy({where: {id}})
+    res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
