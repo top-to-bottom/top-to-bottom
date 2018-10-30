@@ -34,10 +34,21 @@ const User = db.define('user', {
   },
   password: {
     type: Sequelize.STRING,
-    allowNull: false
- 
+    allowNull: false,
+    get() {
+      return () => this.getDataValue('password')
+    },
+    salt: {
+      type: Sequelize.STRING,
+      // Making `.salt` act like a function hides it when serializing to JSON.
+      // This is a hack to get around Sequelize's lack of a "private" option.
+      get() {
+        return () => this.getDataValue('salt')
+      }
+    },
    
   },
+  
   isAdmin: {
     type: Sequelize.BOOLEAN
     // Making `.salt` act like a function hides it when serializing to JSON.
@@ -59,19 +70,34 @@ const User = db.define('user', {
      isNumeric: true,
      isCreditCard: true 
    }
- }
+ },
+ googleId: {
+  type: Sequelize.STRING
+}
 
 })
 
 module.exports = User
 
+
+
+
 /**
  * instanceMethods
  */
 
+User.prototype.correctPassword = function(candidatePwd) {
+  return User.encryptPassword(candidatePwd, this.salt()) === this.password()
+}
+
 /**
  * classMethods
  */
+User.generateSalt = function() {
+  return crypto.randomBytes(16).toString('base64')
+}
+
+
 
 
 
@@ -81,3 +107,13 @@ module.exports = User
 
 
 
+const setSaltAndPassword = user => {
+  if (user.changed('password')) {
+    user.salt = User.generateSalt()
+    user.password = User.encryptPassword(user.password(), user.salt())
+  }
+}
+
+
+User.beforeCreate(setSaltAndPassword)
+User.beforeUpdate(setSaltAndPassword)
