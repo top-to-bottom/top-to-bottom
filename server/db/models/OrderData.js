@@ -7,8 +7,13 @@ const OrderData = db.define('orderData', {
     quantity: {
         type: Sequelize.INTEGER
     },
-    isOrdered: Sequelize.BOOLEAN
-
+    isOrdered: Sequelize.BOOLEAN,
+    price: {
+   type: Sequelize.DECIMAL(10,2),
+   allowNull: false
+      
+    }
+    
 
 })
 
