@@ -5,6 +5,7 @@ const Inventory = require('./inventory')
 const Order = require('./order')
 const OrderData = require('./orderData')
 const Review = require('./review')
+const Address = require('./address')
 
 /**
  * If we had any associations to make, this would be a great place to put them!
@@ -12,6 +13,25 @@ const Review = require('./review')
  *
  *    BlogPost.belongsTo(User)
  */
+
+ Product.belongsTo(Category);
+
+ OrderData.belongsTo(Order);
+ OrderData.hasOne(Product);
+
+ Order.belongsTo(User);
+
+ Inventory.belongsTo(Product);
+
+ Review.belongsTo(Product);
+ Review.belongsTo(User);
+
+ Address.belongsTo(Order);
+ Address.belongsTo(User);
+
+
+
+
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
@@ -26,5 +46,6 @@ module.exports = {
   Inventory,
   Order,
   OrderData,
-  Review
+  Review,
+  Address
 }

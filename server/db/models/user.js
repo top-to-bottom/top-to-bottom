@@ -5,12 +5,12 @@ const db = require('../db')
 const User = db.define('user', {
   firstName: {
     type: Sequelize.STRING,
+    allowNull: false,
     validate: {
-      allowNull: false,
       notEmpty: true
     }
   },
-  
+
   lastName: {
     type: Sequelize.STRING,
     allowNull: false,
@@ -21,7 +21,7 @@ const User = db.define('user', {
   username: {
     type: Sequelize.STRING,
     allowNull: false,
-    
+
   },
   email: {
     type: Sequelize.STRING,
@@ -46,14 +46,14 @@ const User = db.define('user', {
         return () => this.getDataValue('salt')
       }
     },
-   
+
   },
-  
+
   isAdmin: {
     type: Sequelize.BOOLEAN
     // Making `.salt` act like a function hides it when serializing to JSON.
     // This is a hack to get around Sequelize's lack of a "private" option.
-    
+
   },
  imageUrl: {
    type: Sequelize.TEXT,
@@ -68,7 +68,7 @@ const User = db.define('user', {
    allowNull: true,
    validate: {
      isNumeric: true,
-     isCreditCard: true 
+     isCreditCard: true
    }
  },
  googleId: {
@@ -107,13 +107,13 @@ User.generateSalt = function() {
 
 
 
-const setSaltAndPassword = user => {
-  if (user.changed('password')) {
-    user.salt = User.generateSalt()
-    user.password = User.encryptPassword(user.password(), user.salt())
-  }
-}
+// const setSaltAndPassword = user => {
+//   if (user.changed('password')) {
+//     user.salt = User.generateSalt()
+//     user.password = User.encryptPassword(user.password(), user.salt())
+//   }
+// }
 
 
-User.beforeCreate(setSaltAndPassword)
-User.beforeUpdate(setSaltAndPassword)
+// User.beforeCreate(setSaltAndPassword)
+// User.beforeUpdate(setSaltAndPassword)

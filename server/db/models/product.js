@@ -21,7 +21,7 @@ const Product = db.define('product', {
     allowNull: false,
     validate: {
       notEmpty: true,
-      min: 0.00
+      min: 0.01
     }
   },
   imageUrl: {
