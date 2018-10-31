@@ -17,11 +17,11 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: Sequelize.DECIMAL(10,2),
+    type: Sequelize.INTEGER, //cents
     allowNull: false,
     validate: {
       notEmpty: true,
-      min: 0.01
+      min: 0.0
     }
   },
   imageUrl: {
