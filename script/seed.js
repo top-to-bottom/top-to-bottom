@@ -126,12 +126,14 @@ async function seed() {
     Review.create({
       text:
         'This hat is awesome. I love this hat. I wear this hat on my head, I wear this hat in bed. I wear this hat when I am cold, I will wear this hat when I am hold.',
-      stars: 5
+      stars: 5,
+      productId: 1
     }),
     Review.create({
       text:
         'The left shoe is more comfortable than the right shoe. Both shoes are comfortable. I like to wear them on my feet.',
-      stars: 4
+      stars: 4,
+      productId: 2
     })
   ])
   console.log(`seeded ${reviews.length} reviews`)
