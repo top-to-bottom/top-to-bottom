@@ -5,8 +5,10 @@ import {composeWithDevTools} from 'redux-devtools-extension'
 import user from './user'
 import products from './products'
 import sideMenu from './sidemenu'
+import product from './product'
 
-const reducer = combineReducers({user, products, sideMenu})
+const reducer = combineReducers({user, products, product, sideMenu})
+
 const middleware = composeWithDevTools(
   applyMiddleware(thunkMiddleware, createLogger({collapsed: true}))
 )

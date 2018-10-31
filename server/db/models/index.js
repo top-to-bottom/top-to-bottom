@@ -14,24 +14,21 @@ const Address = require('./address')
  *    BlogPost.belongsTo(User)
  */
 
- Product.belongsTo(Category);
+Product.belongsTo(Category)
+Product.hasMany(Review)
 
- OrderData.belongsTo(Order);
- OrderData.hasOne(Product);
+OrderData.belongsTo(Order)
+OrderData.hasOne(Product)
 
- Order.belongsTo(User);
+Order.belongsTo(User)
 
- Inventory.belongsTo(Product);
+Inventory.belongsTo(Product)
 
- Review.belongsTo(Product);
- Review.belongsTo(User);
+Review.belongsTo(Product)
+Review.belongsTo(User)
 
- Address.belongsTo(Order);
- Address.belongsTo(User);
-
-
-
-
+Address.belongsTo(Order)
+Address.belongsTo(User)
 
 /**
  * We'll export all of our models here, so that any time a module needs a model,
