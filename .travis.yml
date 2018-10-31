@@ -16,12 +16,12 @@ install:
 before_script:
   - psql -c 'create database "top-to-bottom-test";' -U postgres # remember to change this name if you change it elsewhere (e.g. package.json)
 
-# before_deploy:
-#   - npm run build-client # make the bundle
-#   - rm -rf node_modules # omit from the tarball, since we skip cleanup
-# deploy:
-#   skip_cleanup: true # prevents travis from deleting the build
-#   provider: heroku
-#   app: YOUR-HEROKU-APP-NAME-HERE # see README
-#   api_key:
-#     secure: YOUR-***ENCRYPTED***-API-KEY-HERE # see README
+before_deploy:
+  - npm run build-client # make the bundle
+  - rm -rf node_modules # omit from the tarball, since we skip cleanup
+deploy:
+  skip_cleanup: true # prevents travis from deleting the build
+  provider: heroku
+  app: top-to-bottom # see README
+  api_key:
+    secure: 'hUTK4RNnUDisYMo7UzdckEw8RcVOAjb+knhgWPNo0wwS+76IMdt8Ic5VrjUZtUdaEfDriCnGknxN9NX6Qv8ErTrl0ncafJ1uQ0w/xcB/kwUQNSSDXmI+M7mltCSR4A2Wo/LKvxPmRoDSRJ1TVSFeBzjypii8nocuBnzo8IR8JK9SrTY3LKwtfI3/CRQ9VGiMypXqgjuKrJD1FroVuz3On/Ri75EtlC4qOen15qdsdzkhHHSsokJXvGnuzI8st3vhu+cqG3IvpVC0UssqBM8C8whnlU46YCPd9mfvGDYzn/XwpOryQzdazzxsqYrRKEab/NA6+c8NdxqlqexGrQRtxS6s0DCrAWba0TVnWWloDNl+pgemTm5sNM4BYW5zdYgfXylH9YUTWy1TaNEIL/Z7i7rV81Es2/LdLCYIulkuDKK8zVKqlD3/qdNI3lspAW4n+d1qRgnV01nuyWzfSsYQ2N2XL4a7JrVyxyTwxjI3m2Hs5tu1vavCC7h/VuMtEuBgkI0FKH+K7eNIlu8+V3E2VOkKH7p0mbMCYfFQqtX97ac2cBh/guqGgKDWzSxJR8d3zY2KhGIrv+gI9bc78hrS9b9drHbiQW5mEZR+Mky7ngk/q1jmF+Ba5FRUWoq3Umitic7qX73n42YSj5IYKHB8kMmjDyrPD47V4v1TgmwGWC4=' # see README
