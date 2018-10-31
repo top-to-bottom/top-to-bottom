@@ -9,10 +9,10 @@ export const SELECT_SINGLE_PRODUCT = 'SELECT_SINGLE_PRODUCT'
 /**
  * INITIAL STATE
  */
-const defaultProduct = {
-  list: [],
-  singleProduct: {}
-}
+// const defaultProduct = {
+//   list: [],
+//   singleProduct: {}
+// }
 
 /**
  * ACTION CREATORS
@@ -36,8 +36,7 @@ export const setProduct = singleProduct =>  {
  */
 export const allProducts = () => async dispatch => {
   try {
-    const res = await axios.get('/api/products');
-    const products = res.data;
+    const {data: products} = await axios.get('/api/products')
     const action = getProducts(products)
     dispatch(action);
   } catch (err) {
@@ -58,17 +57,11 @@ export const setSingleProduct = (id) => async dispatch => {
 /**
  * REDUCER
  */
-export default function(state = defaultProduct, action) {
-  switch (action.type) {
-    case GET_PRODUCTS:
-      return {
-        ...state, list: action.products
-      }
 
-    case SELECT_SINGLE_PRODUCT:
-      return {
-        ...state, singleProduct: action.singleProduct
-      }
+export const allProductsReducer = (state = [], action) =>  {
+  switch(action.type) {
+    case GET_PRODUCTS:
+      return action.products;
 
     default:
       return state;
