@@ -1,5 +1,6 @@
 const Sequelize = require('sequelize')
 const db = require('../db')
+const {Category} = require('./')
 
 const Product = db.define('product', {
   name: {
@@ -17,7 +18,7 @@ const Product = db.define('product', {
     }
   },
   price: {
-    type: Sequelize.DECIMAL(10,2),
+    type: Sequelize.DECIMAL(10, 2),
     allowNull: false,
     validate: {
       notEmpty: true,
@@ -32,5 +33,29 @@ const Product = db.define('product', {
     }
   }
 })
+
+Product.getItemsForCategory = categoryName => {
+  const products = Product.findAll({
+    include: [
+      {model: Category},
+      {
+        where: {
+          name: categoryName
+        }
+      }
+    ]
+  })
+
+  return products
+}
+
+Product.getItemsByName = name => {
+  const foundProducts = Product.findAll({
+    where: {
+      name: name
+    }
+  })
+  return foundProducts
+}
 
 module.exports = Product
