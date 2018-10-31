@@ -39,6 +39,13 @@ const SingleProductCard = props => {
             ${product.price}
           </Typography>
           <Typography component="p">{product.description}</Typography>
+          <Typography gutterBottom variant="h6" component="h4">
+            Reviews
+          </Typography>
+          {!!product.reviews &&
+            product.reviews.map(review => (
+              <Typography key={review.id}>{review.text}</Typography>
+            ))}
         </CardContent>
       </CardActionArea>
       <CardActions>
