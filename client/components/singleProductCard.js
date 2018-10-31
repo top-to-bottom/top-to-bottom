@@ -9,6 +9,7 @@ import CardContent from '@material-ui/core/CardContent'
 import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import Icon from '@material-ui/core/Icon'
 
 const styles = {
   card: {
@@ -44,7 +45,41 @@ const SingleProductCard = props => {
           </Typography>
           {!!product.reviews &&
             product.reviews.map(review => (
-              <Typography key={review.id}>{review.text}</Typography>
+              <React.Fragment key={review.id}>
+                <Typography>{review.text}</Typography>
+                <Typography>
+                  <Icon
+                    className={classes.icon}
+                    color={review.stars >= 1 ? 'secondary' : 'primary'}
+                  >
+                    star_rate
+                  </Icon>
+                  <Icon
+                    className={classes.icon}
+                    color={review.stars >= 2 ? 'secondary' : 'primary'}
+                  >
+                    star_rate
+                  </Icon>
+                  <Icon
+                    className={classes.icon}
+                    color={review.stars >= 3 ? 'secondary' : 'primary'}
+                  >
+                    star_rate
+                  </Icon>
+                  <Icon
+                    className={classes.icon}
+                    color={review.stars >= 4 ? 'secondary' : 'primary'}
+                  >
+                    star_rate
+                  </Icon>
+                  <Icon
+                    className={classes.icon}
+                    color={review.stars >= 5 ? 'secondary' : 'primary'}
+                  >
+                    star_rate
+                  </Icon>
+                </Typography>
+              </React.Fragment>
             ))}
         </CardContent>
       </CardActionArea>
