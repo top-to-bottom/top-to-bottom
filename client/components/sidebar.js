@@ -7,6 +7,7 @@ import ListItemText from '@material-ui/core/ListItemText'
 import {withStyles} from '@material-ui/core/styles'
 
 import {connect} from 'react-redux'
+import {changeSidemenu} from '../store/sidemenu'
 
 const styles = theme => {
   return {
@@ -51,7 +52,7 @@ const Sidebar = props => {
 const mapDispatchToProps = dispatch => {
   return {
     closeSideBar: () => {
-      //TODO: Dispatch action to set sideMenuOpen to false
+      dispatch(changeSidemenu())
       console.log('Close Side menu')
     }
   }
