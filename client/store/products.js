@@ -26,7 +26,7 @@ export const getProducts = products =>  {
 
 export const setProduct = singleProduct =>  {
   return {
-    type: GET_PRODUCTS,
+    type: SELECT_SINGLE_PRODUCT,
     singleProduct
   }
 }
