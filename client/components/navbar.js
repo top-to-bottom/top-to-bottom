@@ -15,9 +15,6 @@ import {fade} from '@material-ui/core/styles/colorManipulator'
 
 const styles = theme => {
   return {
-    root: {
-      width: '100%'
-    },
     menuButton: {
       marginLeft: -12,
       marginRight: 20
@@ -78,20 +75,21 @@ const styles = theme => {
 
 class Navbar extends React.Component {
   render() {
-    const {classes} = this.props
+    const {classes, rootClassName} = this.props
     return (
-      <div className={classes.root}>
+      <div className={rootClassName}>
         <AppBar position="static">
           <Toolbar>
-            <Link to="/" className={classes.link}>
-              <IconButton
-                className={classes.menuButton}
-                color="inherit"
-                aria-label="Open drawer"
-              >
-                <MenuIcon />
-              </IconButton>
-            </Link>
+            <IconButton
+              className={classes.menuButton}
+              color="inherit"
+              aria-label="Open drawer"
+              onClick={() => {
+                //TODO: Dispatch action to set sideMenuOpen to true
+              }}
+            >
+              <MenuIcon />
+            </IconButton>
             <Link to="/" className={classes.link}>
               <Typography variant="h4" color="inherit" noWrap>
                 TOP-TO-BOTTOM
@@ -125,9 +123,9 @@ class Navbar extends React.Component {
                   <Link to="/" className={classes.link}>
                     <IconButton color="inherit">My Account</IconButton>
                   </Link>
-                  <Link to="/" className={classes.link}>
-                    <IconButton color="inherit">Logout</IconButton>
-                  </Link>
+                  <IconButton onClick={this.props.logout}>
+                    <label style={{color: 'white'}}>Logout</label>
+                  </IconButton>
                 </div>
               )}
               <Link to="/" className={classes.link}>
@@ -154,7 +152,7 @@ const mapState = state => {
 
 const mapDispatch = dispatch => {
   return {
-    handleClick() {
+    logout() {
       dispatch(logout())
     }
   }
