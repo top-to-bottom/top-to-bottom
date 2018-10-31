@@ -21,7 +21,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
-      <Sidebar open={true} />
+      <Sidebar open={false} />
       <Routes />
     </div>
   )

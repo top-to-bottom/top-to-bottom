@@ -74,6 +74,7 @@ const styles = theme => {
 }
 
 class Navbar extends React.Component {
+  state = {}
   render() {
     const {classes, rootClassName} = this.props
     return (
