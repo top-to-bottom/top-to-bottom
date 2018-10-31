@@ -12,6 +12,7 @@ import MenuIcon from '@material-ui/icons/Menu'
 import SearchIcon from '@material-ui/icons/Search'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import {fade} from '@material-ui/core/styles/colorManipulator'
+import {changeSidemenu} from '../store/sidemenu'
 
 const styles = theme => {
   return {
@@ -74,6 +75,7 @@ const styles = theme => {
 }
 
 class Navbar extends React.Component {
+  state = {}
   render() {
     const {classes, rootClassName} = this.props
     return (
@@ -154,7 +156,8 @@ const mapDispatch = dispatch => {
   return {
     logout() {
       dispatch(logout())
-    }
+    },
+    openSideBar: () => dispatch(changeSidemenu(true))
   }
 }
 
