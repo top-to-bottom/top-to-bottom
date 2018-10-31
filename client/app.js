@@ -1,6 +1,7 @@
 import React from 'react'
+import {Navbar, Sidebar} from './components'
 import { connect } from 'react-redux'
-import {Navbar} from './components'
+
 import Routes from './routes'
 import { allProducts } from './store/product'
 
@@ -20,6 +21,7 @@ const App = () => {
   return (
     <div>
       <Navbar />
+      <Sidebar open={true} />
       <Routes />
     </div>
   )
