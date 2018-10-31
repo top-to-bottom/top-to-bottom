@@ -39,8 +39,8 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const product = req.body
-    const {data} = await User.update(product, {where: {id}})
+    const user = req.body
+    const {data} = await User.update(user, {where: {id}})
     res.json(data)
   } catch (error) {
     next(error)
