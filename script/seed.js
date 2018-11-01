@@ -60,8 +60,7 @@ async function seed() {
       description: 'A hat to wear on your head.',
 
       price: 999,
-      imageUrl:
-
+      defaultImageUrl:
         'https://images-na.ssl-images-amazon.com/images/I/71odJc-Sd2L._UX385_.jpg'
     }),
     Product.create({
