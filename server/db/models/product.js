@@ -25,12 +25,15 @@ const Product = db.define('product', {
       min: 0.0
     }
   },
-  imageUrl: {
+  defaultImageUrl: {
     type: Sequelize.STRING,
-    defaultValue: 'http://www.indiantradebird.in/images/noimage.jpg',
-    validate: {
-      isUrl: true
-    }
+    allowNull: false,
+    defaultValue: 'http://www.indiantradebird.in/images/noimage.jpg'
+  },
+  secondaryImageUrl: {
+    type: Sequelize.STRING,
+    allowNull: false,
+    defaultValue: 'http://www.indiantradebird.in/images/noimage.jpg'
   }
 })
 
