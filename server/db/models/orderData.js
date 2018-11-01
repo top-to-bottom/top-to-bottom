@@ -5,9 +5,8 @@ const OrderData = db.define('orderData', {
   quantity: {
     type: Sequelize.INTEGER
   },
-  isOrdered: Sequelize.BOOLEAN,
   price: {
-    type: Sequelize.DECIMAL(10, 2),
+    type: Sequelize.INTEGER,
     allowNull: false
   }
 })
