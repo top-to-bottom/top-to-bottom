@@ -4,15 +4,11 @@ import axios from 'axios'
  * ACTION TYPES
  */
 export const GET_PRODUCTS = 'GET_PRODUCTS'
-// export const SELECT_SINGLE_PRODUCT = 'SELECT_SINGLE_PRODUCT'
+export const ADD_PRODUCT = 'ADD_PRODUCT'
 
 /**
  * INITIAL STATE
  */
-// const defaultProduct = {
-//   list: [],
-//   singleProduct: {}
-// }
 
 /**
  * ACTION CREATORS
@@ -24,12 +20,12 @@ export const getProducts = products => {
   }
 }
 
-// export const setProduct = singleProduct =>  {
-//   return {
-//     type: SELECT_SINGLE_PRODUCT,
-//     singleProduct
-//   }
-// }
+export const addProduct = newProduct =>  {
+  return {
+    type: ADD_PRODUCT,
+    newProduct
+  }
+}
 
 /**
  * THUNK CREATORS
@@ -44,15 +40,15 @@ export const allProducts = () => async dispatch => {
   }
 }
 
-// export const setSingleProduct = (id) => async dispatch => {
-//   try {
-//     const {data: singleProduct} = await axios.get(`/api/products/${id}`)
-//     const action = setProduct(singleProduct)
-//     dispatch(action);
-//   } catch (err) {
-//     console.error(err)
-//   }
-// }
+export const createProduct = (newProduct) => async dispatch => {
+  try {
+    const {data: newestProduct} = await axios.post('/api/products/', newProduct)
+    const action = addProduct(newestProduct)
+    dispatch(action);
+  } catch (err) {
+    console.error(err)
+  }
+}
 
 /**
  * REDUCER
@@ -61,6 +57,9 @@ export default (state = [], action) => {
   switch (action.type) {
     case GET_PRODUCTS:
       return action.products
+
+    case ADD_PRODUCT:
+      return [...state, action.newProduct]
 
     default:
       return state

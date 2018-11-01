@@ -29,7 +29,7 @@ const listProductsCard = props => {
           alt={product.name}
           className={classes.media}
           height="140"
-          image={product.imageUrl}
+          image={product.defaultImageUrl}
           title={product.name}
         />
         <CardContent>
