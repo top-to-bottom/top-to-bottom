@@ -22,40 +22,58 @@ const Sidebar = props => {
     <SwipeableDrawer
       className={props.classes.drawer}
       open={props.open}
-      onClose={() => {}}
+      onClose={() => {
+        props.closeSideBar()
+      }}
       onOpen={() => {}}
     >
-      <List>
-        <ListItem
-          button
-          onClick={() => {
-            props.closeSideBar()
-          }}
-        >
-          <ListItemText primary="Shoes" />
-        </ListItem>
-        <Divider />
-        <ListItem
-          button
-          onClick={() => {
-            props.closeSideBar()
-          }}
-        >
-          <ListItemText primary="Hats" />
-        </ListItem>
-        <Divider />
-      </List>
+      <div
+        tabIndex={0}
+        role="button"
+        onClick={() => {
+          props.closeSideBar()
+        }}
+      >
+        <List>
+          <ListItem
+            button
+            onClick={() => {
+              props.closeSideBar()
+            }}
+          >
+            <ListItemText primary="Shoes" />
+          </ListItem>
+          <Divider />
+          <ListItem
+            button
+            onClick={() => {
+              props.closeSideBar()
+            }}
+          >
+            <ListItemText primary="Hats" />
+          </ListItem>
+          <Divider />
+        </List>
+      </div>
     </SwipeableDrawer>
   )
+}
+
+const mapStateToProps = state => {
+  return {
+    open: state.openMenu
+  }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     closeSideBar: () => {
-      dispatch(changeSidemenu())
+      dispatch(changeSidemenu(false))
       console.log('Close Side menu')
     }
   }
 }
 
-export default withStyles(styles)(connect(null, mapDispatchToProps)(Sidebar))
+export default withStyles(styles)(
+  connect(mapStateToProps, mapDispatchToProps)(Sidebar)
+)

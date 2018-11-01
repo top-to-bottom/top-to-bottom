@@ -87,7 +87,7 @@ class Navbar extends React.Component {
               color="inherit"
               aria-label="Open drawer"
               onClick={() => {
-                //TODO: Dispatch action to set sideMenuOpen to true
+                this.props.openSideBar()
               }}
             >
               <MenuIcon />
