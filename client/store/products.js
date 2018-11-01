@@ -31,20 +31,6 @@ export const getProducts = products => {
 //   }
 // }
 
-const addItemToCart = item => {
-  return {
-    type: ADD_ITEM_TO_CART,
-    item
-  }
-}
-
-const removeItemFromCart = item => {
-  return {
-    type: REMOVE_ITEM_FROM_CART,
-    item
-  }
-}
-
 /**
  * THUNK CREATORS
  */
