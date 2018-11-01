@@ -32,9 +32,19 @@ const SingleProductCard = props => {
           alt={product.name}
           className={classes.media}
           height="140"
-          image={product.imageUrl}
+          image={product.defaultImageUrl}
           title={product.name}
         />
+        {
+          product.secondaryImageUrl ? <CardMedia
+          component="img"
+          alt={product.name}
+          className={classes.media}
+          height="140"
+          image={product.secondaryImageUrl}
+          title={product.name}
+        /> : <div />
+        }
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {product.name}
