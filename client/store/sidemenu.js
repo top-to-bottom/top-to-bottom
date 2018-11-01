@@ -8,19 +8,12 @@ export const changeSidemenu = openMenu => {
   }
 }
 
-const initialState = {
-  openMenu: false
-}
-
 //reducer
 
-export default function(state = initialState, action) {
+export default function(state = false, action) {
   switch (action.type) {
     case CHANGE_SIDEMENU:
-      return {
-        ...state,
-        openMenu: action.openMenu
-      }
+      return action.openMenu
     default:
       return state
   }
