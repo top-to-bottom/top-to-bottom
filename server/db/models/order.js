@@ -9,18 +9,14 @@ const Order = db.define('order', {
     type: Sequelize.BOOLEAN,
     allowNull: false
   },
-  cookieInfo: {
-    type: Sequelize.TEXT //We will need to review this one we have the sessions
+  session: {
+    type: Sequelize.TEXT
   },
   status: {
     type: Sequelize.STRING,
     validate: {
       isIn: [['created', 'processing', 'cancelled', 'completed']]
     }
-  },
-  submitted: {
-    type: Sequelize.BOOLEAN,
-    allowNull: false
   }
 })
 
