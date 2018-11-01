@@ -17,7 +17,7 @@ export const GET_PRODUCTS = 'GET_PRODUCTS'
 /**
  * ACTION CREATORS
  */
-export const getProducts = products =>  {
+export const getProducts = products => {
   return {
     type: GET_PRODUCTS,
     products
@@ -38,7 +38,7 @@ export const allProducts = () => async dispatch => {
   try {
     const {data: products} = await axios.get('/api/products')
     const action = getProducts(products)
-    dispatch(action);
+    dispatch(action)
   } catch (err) {
     console.error(err)
   }
