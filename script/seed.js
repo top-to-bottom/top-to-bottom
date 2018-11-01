@@ -58,14 +58,14 @@ async function seed() {
     Product.create({
       name: 'Hat',
       description: 'A hat to wear on your head.',
-      price: 9.99,
+      price: 999,
       imageUrl:
         'https://images-na.ssl-images-amazon.com/images/I/71odJc-Sd2L._UX385_.jpg'
     }),
     Product.create({
       name: 'Shoes',
       description: 'A pair of shoes to wear on your feet.',
-      price: 29.5
+      price: 2950
     })
   ])
   console.log(`seeded ${products.length} products`)
@@ -96,14 +96,19 @@ async function seed() {
     Order.create({
       date: new Date(),
       isRegister: true,
-      submitted: true,
-      status: 'processing'
+      status: 'processing',
+      userId: 2
     }),
     Order.create({
       date: new Date(),
       isRegister: false,
-      submitted: false,
       status: 'created'
+    }),
+    Order.create({
+      date: new Date(),
+      isRegister: true,
+      status: 'completed',
+      userId: 2
     })
   ])
   console.log(`seeded ${orders.length} orders`)
@@ -111,13 +116,21 @@ async function seed() {
   const orderDataSeed = await Promise.all([
     OrderData.create({
       quantity: 1,
-      isOrdered: true,
-      price: 9.99
+      price: 1099,
+      orderId: 1,
+      productId: 1
     }),
     OrderData.create({
       quantity: 1,
-      isOrdered: false,
-      price: 29.5
+      price: 3050,
+      orderId: 1,
+      productId: 2
+    }),
+    OrderData.create({
+      quantity: 2,
+      price: 3050,
+      orderId: 3,
+      productId: 2
     })
   ])
   console.log(`seeded ${orderDataSeed.length} rows of orderData`)
@@ -127,13 +140,15 @@ async function seed() {
       text:
         'This hat is awesome. I love this hat. I wear this hat on my head, I wear this hat in bed. I wear this hat when I am cold, I will wear this hat when I am hold.',
       stars: 5,
-      productId: 1
+      productId: 1,
+      userId: 1
     }),
     Review.create({
       text:
         'The left shoe is more comfortable than the right shoe. Both shoes are comfortable. I like to wear them on my feet.',
       stars: 4,
-      productId: 2
+      productId: 2,
+      userId: 1
     })
   ])
   console.log(`seeded ${reviews.length} reviews`)
