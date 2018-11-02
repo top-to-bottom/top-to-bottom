@@ -36,15 +36,15 @@ const listProductsCard = props => {
           <Typography gutterBottom variant="h5" component="h2">
             {product.name}
             {'           '}
-            ${product.price}
+            {numeral(product.price / 100).format('$0,0.00')}
           </Typography>
           <Typography component="p">{product.description}</Typography>
         </CardContent>
       </CardActionArea>
       <CardActions>
-          <Button size="small" color="primary">
-            LEARN MORE
-          </Button>
+        <Button size="small" color="primary">
+          LEARN MORE
+        </Button>
       </CardActions>
     </Card>
   )
