@@ -1,5 +1,4 @@
 import axios from 'axios'
-import history from '../history'
 
 const GET_USERS = 'GET_USERS'
 const REMOVE_USERS = 'REMOVE_USERS'
