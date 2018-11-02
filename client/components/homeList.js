@@ -42,13 +42,13 @@ const tileData = [
   {
     img: '/hat.jpeg',
     title: 'Hats',
-    link: '/products/1',
+    link: '/products/category/hats',
     cols: 2
   },
   {
     img: '/shoe.jpeg',
     title: 'Shoes',
-    link: '/products/2',
+    link: '/products/category/shoes',
     cols: 3
   }
 ]
