@@ -26,7 +26,7 @@ const Product = db.define('product', {
     }
   },
   defaultImageUrl: {
-    type: Sequelize.STRING,
+    type: Sequelize.TEXT,
     allowNull: false,
     defaultValue: 'http://www.indiantradebird.in/images/noimage.jpg'
   },

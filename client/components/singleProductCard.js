@@ -35,21 +35,23 @@ const SingleProductCard = props => {
           image={product.defaultImageUrl}
           title={product.name}
         />
-        {
-          product.secondaryImageUrl ? <CardMedia
-          component="img"
-          alt={product.name}
-          className={classes.media}
-          height="140"
-          image={product.secondaryImageUrl}
-          title={product.name}
-        /> : <div />
-        }
+        {product.secondaryImageUrl ? (
+          <CardMedia
+            component="img"
+            alt={product.name}
+            className={classes.media}
+            height="140"
+            image={product.secondaryImageUrl}
+            title={product.name}
+          />
+        ) : (
+          <div />
+        )}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {product.name}
             {'           '}
-            ${product.price}
+            {numeral(product.price / 100).format('$0,0.00')}
           </Typography>
           <Typography component="p">{product.description}</Typography>
           <Typography gutterBottom variant="h6" component="h4">
