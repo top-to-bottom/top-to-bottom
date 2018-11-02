@@ -34,6 +34,7 @@ Address.belongsTo(Order)
 Address.belongsTo(User)
 
 Cart.belongsToMany(Product, {through: 'cartProduct'})
+
 Product.belongsToMany(Cart, {through: 'cartProduct'})
 
 User.hasMany(Order)

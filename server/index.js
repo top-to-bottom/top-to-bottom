@@ -57,7 +57,8 @@ const createApp = () => {
       secret: process.env.SESSION_SECRET || 'my best friend is Cody',
       store: sessionStore,
       resave: false,
-      saveUninitialized: false
+      saveUninitialized: true
+      // now I can save my cookie and my sessionId is gonna persist
     })
   )
   app.use(passport.initialize())

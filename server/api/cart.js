@@ -32,7 +32,10 @@ router.get('/products', async (req, res, next) => {
 router.put('/', async (req, res, next) => {
   try {
     const productId = req.body.productId
+    console.log('productId', productId, 'SessionId', req.session.id)
+
     const cart = await Cart.findOne({where: {sessionId: req.session.id}})
+
     await cart.addProducts([productId])
     res.sendStatus(201)
   } catch (err) {
