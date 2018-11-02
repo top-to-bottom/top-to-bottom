@@ -35,6 +35,7 @@ function mapDispatch(dispatch) {
   }
 }
 
+// ** TO DO / UPDATE ** //
 const categories = [
   {
     id: 1,
@@ -45,6 +46,7 @@ const categories = [
     name: 'Shoes'
   }
 ]
+// Update categories after creation of Category Store (fetchCategories, AddCategories, etc). This is a temporary solution to confirm functionality on addProduct page. //
 
 export class addProduct extends Component {
   constructor() {

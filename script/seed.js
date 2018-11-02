@@ -58,15 +58,16 @@ async function seed() {
     Product.create({
       name: 'Hat',
       description: 'A hat to wear on your head.',
-
       price: 999,
       defaultImageUrl:
-        'https://images-na.ssl-images-amazon.com/images/I/71odJc-Sd2L._UX385_.jpg'
+        'https://images-na.ssl-images-amazon.com/images/I/71odJc-Sd2L._UX385_.jpg',
+      // categoryId: 1
     }),
     Product.create({
       name: 'Shoes',
       description: 'A pair of shoes to wear on your feet.',
-      price: 2950
+      price: 2950,
+      // categoryId: 2
     })
   ])
   console.log(`seeded ${products.length} products`)
