@@ -1,7 +1,6 @@
 import React from 'react'
 import {removeUsers, fetchUsers} from '../store/users'
 
-import axios from 'axios'
 import {connect} from 'react-redux'
 
 class UsersList extends React.Component {
@@ -15,12 +14,13 @@ class UsersList extends React.Component {
         <ul>
           {this.props.users.map(user => {
             return (
-              <div>
+              <div style={{display: 'flex', flexDirection: 'row'}}>
                 <li>
-                  {user.firstName}
-                  {user.lastName}
+                  {user.id} {user.email}
                 </li>
+
                 <button
+                  style={{marginLeft: 10}}
                   onClick={() => {
                     this.props.deleteUser(user)
                   }}

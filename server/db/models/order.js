@@ -3,7 +3,8 @@ const db = require('../db')
 
 const Order = db.define('order', {
   date: {
-    type: Sequelize.DATEONLY
+    type: Sequelize.DATE,
+    allowNull: false
   },
   isRegister: {
     type: Sequelize.BOOLEAN,

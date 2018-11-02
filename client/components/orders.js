@@ -5,8 +5,10 @@ import {SingleOrderTable} from './index'
 
 import {fetchOrders} from '../store/orders'
 
-const mapState = ({orders}) => {
-  return {orders}
+const mapState = ({orders, user}) => {
+  const id = user.id
+  const userOrders = orders.filter(order => order.userId === id)
+  return {orders: userOrders}
 }
 
 const mapDispatch = {fetchOrders}

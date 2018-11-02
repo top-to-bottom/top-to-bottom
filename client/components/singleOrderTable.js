@@ -1,4 +1,5 @@
 import React from 'react'
+import {Link} from 'react-router-dom'
 
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
@@ -21,12 +22,12 @@ const CustomTableCell = withStyles(theme => ({
 
 const styles = theme => ({
   root: {
-    width: '50%',
+    width: '80%',
     marginTop: theme.spacing.unit * 3,
     overflowX: 'auto'
   },
   table: {
-    minWidth: 700
+    minWidth: 500
   },
   row: {
     '&:nth-of-type(odd)': {
@@ -43,7 +44,8 @@ function CustomizedTable(props) {
         <TableHead>
           <TableRow>
             <CustomTableCell>
-              Order# {order.id} on {order.date}
+              Order# {order.id} Status: {order.status} submitted on{' '}
+              {order.date.slice(0, 10)} at {order.date.slice(11, 19)}
             </CustomTableCell>
             <CustomTableCell numeric>Quantity</CustomTableCell>
             <CustomTableCell numeric>Price</CustomTableCell>
@@ -55,7 +57,10 @@ function CustomizedTable(props) {
             return (
               <TableRow className={classes.row} key={orderData.id}>
                 <CustomTableCell component="th" scope="row">
-                  {orderData.product.name}
+                  <Link to={`/products/${orderData.product.id}`}>
+                    {' '}
+                    {orderData.product.name}
+                  </Link>
                 </CustomTableCell>
                 <CustomTableCell numeric>{orderData.quantity}</CustomTableCell>
                 <CustomTableCell numeric>
