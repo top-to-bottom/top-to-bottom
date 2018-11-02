@@ -10,7 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
-import {addItemToCart} from '../store/cart'
+import {addProductToCart} from '../store/cart'
 import {connect} from 'react-redux'
 
 const styles = {
@@ -35,16 +35,18 @@ const SingleProductCard = props => {
           image={product.defaultImageUrl}
           title={product.name}
         />
-        {
-          product.secondaryImageUrl ? <CardMedia
-          component="img"
-          alt={product.name}
-          className={classes.media}
-          height="140"
-          image={product.secondaryImageUrl}
-          title={product.name}
-        /> : <div />
-        }
+        {product.secondaryImageUrl ? (
+          <CardMedia
+            component="img"
+            alt={product.name}
+            className={classes.media}
+            height="140"
+            image={product.secondaryImageUrl}
+            title={product.name}
+          />
+        ) : (
+          <div />
+        )}
         <CardContent>
           <Typography gutterBottom variant="h5" component="h2">
             {product.name}
@@ -116,7 +118,7 @@ const SingleProductCard = props => {
 const mapDispatchToProps = dispatch => {
   return {
     addToCart: product => {
-      dispatch(addItemToCart(product))
+      dispatch(addProductToCart(product))
     }
   }
 }
