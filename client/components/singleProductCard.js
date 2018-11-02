@@ -51,7 +51,7 @@ const SingleProductCard = props => {
           <Typography gutterBottom variant="h5" component="h2">
             {product.name}
             {'           '}
-            ${product.price}
+            {numeral(product.price / 100).format('$0,0.00')}
           </Typography>
           <Typography component="p">{product.description}</Typography>
           <Typography gutterBottom variant="h6" component="h4">

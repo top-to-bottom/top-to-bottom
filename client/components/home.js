@@ -1,20 +1,17 @@
 import React from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux'
-import {Link} from 'react-router-dom'
 
 import {HomeList} from './index'
 
 /**
  * COMPONENT
  */
-export const UserHome = props => {
-  const {email} = props
-
+export const Home = props => {
+  const num = 1650351
   return (
     <div>
-      <h3>Welcome, {email}</h3>
-      <Link to="/orders">Review past Orders</Link>
+      <h3>Welcome, visitor #{num}</h3>
       <HomeList />
     </div>
   )
@@ -24,16 +21,14 @@ export const UserHome = props => {
  * CONTAINER
  */
 const mapState = state => {
-  return {
-    email: state.user.email
-  }
+  return state
 }
 
-export default connect(mapState)(UserHome)
+export default connect(mapState)(Home)
 
 /**
  * PROP TYPES
  */
-UserHome.propTypes = {
+Home.propTypes = {
   email: PropTypes.string
 }
