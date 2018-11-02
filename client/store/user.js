@@ -4,7 +4,7 @@ import history from '../history'
 /**
  * ACTION TYPES
  */
-const GET_USER = 'GET_USER'
+const SET_USER = 'SET_USER'
 const REMOVE_USER = 'REMOVE_USER'
 
 /**
@@ -15,7 +15,7 @@ const defaultUser = {}
 /**
  * ACTION CREATORS
  */
-const getUser = user => ({type: GET_USER, user})
+const getUser = user => ({type: SET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
 
 /**
@@ -56,12 +56,18 @@ export const logout = () => async dispatch => {
   }
 }
 
+export const setUser = id => async dispatch =>  {
+  const {data: user} = await axios.get(`/api/users/${id}`)
+  console.log('WHAT IS USER HERE:', user)
+  dispatch(getUser(user))
+}
+
 /**
  * REDUCER
  */
 export default function(state = defaultUser, action) {
   switch (action.type) {
-    case GET_USER:
+    case SET_USER:
       return action.user
     case REMOVE_USER:
       return defaultUser

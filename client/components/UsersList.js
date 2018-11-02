@@ -1,5 +1,7 @@
 import React from 'react'
 import {removeUsers, fetchUsers} from '../store/users'
+import {setUser} from '../store/user'
+import {Link} from 'react-router-dom'
 
 import {connect} from 'react-redux'
 
@@ -14,9 +16,11 @@ class UsersList extends React.Component {
         <ul>
           {this.props.users.map(user => {
             return (
-              <div style={{display: 'flex', flexDirection: 'row'}}>
+              <div key={user.id} style={{display: 'flex', flexDirection: 'row'}}>
                 <li>
-                  {user.id} {user.email}
+                  <Link to={`/users/${user.id}`} >
+                  {user.id} - {user.email}
+                  </Link>
                 </li>
 
                 <button
@@ -45,6 +49,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     fetchUsers: () => dispatch(fetchUsers()),
+    setUser: (user) => dispatch(setUser(user.id)),
     deleteUser: user => dispatch(removeUsers(user))
   }
 }
