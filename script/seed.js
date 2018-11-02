@@ -110,6 +110,12 @@ async function seed() {
       isRegister: true,
       status: 'completed',
       userId: 2
+    }),
+    Order.create({
+      date: new Date(),
+      isRegister: true,
+      status: 'cancelled',
+      userId: 1
     })
   ])
   console.log(`seeded ${orders.length} orders`)
@@ -132,6 +138,18 @@ async function seed() {
       price: 3050,
       orderId: 3,
       productId: 2
+    }),
+    OrderData.create({
+      quantity: 2,
+      price: 150,
+      orderId: 2,
+      productId: 1
+    }),
+    OrderData.create({
+      quantity: 10,
+      price: 1150,
+      orderId: 4,
+      productId: 1
     })
   ])
   console.log(`seeded ${orderDataSeed.length} rows of orderData`)
