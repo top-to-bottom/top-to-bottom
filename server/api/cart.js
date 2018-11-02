@@ -5,6 +5,7 @@ const {Cart, Product} = require('../db/models')
 router.get('/', async (req, res, next) => {
   try {
     const cart = await Cart.findOrCreate({where: {sessionId: req.session.id}})
+
     res.send(cart)
   } catch (err) {
     next(err)

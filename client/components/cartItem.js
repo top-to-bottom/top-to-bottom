@@ -1,5 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
+
 import {addItemToCart, setItemsInCart, removeItemFromCart} from '../store/cart'
 
 class CartItem extends React.Component {
