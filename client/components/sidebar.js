@@ -8,6 +8,7 @@ import {withStyles} from '@material-ui/core/styles'
 
 import {connect} from 'react-redux'
 import {changeSidemenu} from '../store/sidemenu'
+import {Link} from 'react-router-dom'
 
 const styles = theme => {
   return {
@@ -41,7 +42,9 @@ const Sidebar = props => {
               props.closeSideBar()
             }}
           >
-            <ListItemText primary="Shoes" />
+            <Link to="/products/category/shoes">
+              <ListItemText primary="Shoes" />
+            </Link>
           </ListItem>
           <Divider />
           <ListItem
@@ -50,7 +53,9 @@ const Sidebar = props => {
               props.closeSideBar()
             }}
           >
-            <ListItemText primary="Hats" />
+            <Link to="/products/category/hats">
+              <ListItemText primary="Hats" />
+            </Link>
           </ListItem>
           <Divider />
         </List>

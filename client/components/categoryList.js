@@ -4,13 +4,17 @@ import {Link} from 'react-router-dom'
 import {ListProductsCard} from './index'
 import {allProducts} from '../store/products'
 
-const mapState = ({products}) => {
-  return {products}
+const mapState = ({products}, ownProps) => {
+  const category = ownProps.match.params.category
+  const productsFilter = products.filter(
+    product => product.category.name === category
+  )
+  return {products: productsFilter}
 }
 
 const mapDispatch = {allProducts}
 
-class listProducts extends React.Component {
+class CategoryList extends React.Component {
   componentDidMount() {
     this.props.allProducts()
   }
@@ -36,4 +40,4 @@ class listProducts extends React.Component {
   }
 }
 
-export default connect(mapState, mapDispatch)(listProducts)
+export default connect(mapState, mapDispatch)(CategoryList)

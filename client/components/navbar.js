@@ -76,9 +76,19 @@ const styles = theme => {
 }
 
 class Navbar extends React.Component {
-  componentDidMount() {
-    this.props.fetchCartCount()
+  state = {search: ''}
+
+  onChange = event => {
+    const search = event.target.value
+    console.log(event.target)
+    this.setState({search})
   }
+
+  onSubmit = event => {
+    event.preventDefault()
+    console.log('I press enter')
+  }
+
   render() {
     const {classes, rootClassName} = this.props
     return (
@@ -101,18 +111,24 @@ class Navbar extends React.Component {
               </Typography>
             </Link>
             <div className={classes.seperator} />
+
             <div className={classes.search}>
               <div className={classes.searchIcon}>
                 <SearchIcon />
               </div>
-              <InputBase
-                placeholder="Search…"
-                classes={{
-                  root: classes.inputRoot,
-                  input: classes.inputInput
-                }}
-              />
+              <form onSubmit={this.onSubmit}>
+                <InputBase
+                  placeholder="Search…"
+                  classes={{
+                    root: classes.inputRoot,
+                    input: classes.inputInput
+                  }}
+                  onChange={this.onChange}
+                  value={this.state.search}
+                />
+              </form>
             </div>
+
             <div className={classes.menuButtonContainer}>
               {this.props.isLoggedIn === false ? (
                 <div className={classes.menuButtonContainer}>
