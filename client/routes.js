@@ -19,13 +19,15 @@ import {
 } from './components'
 
 import {me} from './store'
+import {fetchUserCart} from './store/cart'
 
 /**
  * COMPONENT
  */
 class Routes extends Component {
-  componentDidMount() {
-    this.props.loadInitialData()
+  async componentDidMount() {
+    await this.props.loadInitialData()
+    this.props.fetchCartData()
   }
 
   render() {
@@ -73,7 +75,10 @@ const mapState = state => {
 const mapDispatch = dispatch => {
   return {
     loadInitialData() {
-      dispatch(me())
+      return dispatch(me())
+    },
+    fetchCartData: () => {
+      dispatch(fetchUserCart())
     }
   }
 }
