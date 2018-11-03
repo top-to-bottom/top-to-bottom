@@ -1,10 +1,17 @@
 const router = require('express').Router()
 const {Product, Review, Category} = require('../db/models')
+const Sequelize = require('sequelize')
+const Op = Sequelize.Op
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const products = await Product.findAll({include: Category})
+    const products = await Product.findAll({
+      include: Category,
+      where: req.query.search
+        ? {name: {[Op.iLike]: `%${req.query.search}%`}}
+        : {}
+    })
     res.json(products)
   } catch (error) {
     next(error)

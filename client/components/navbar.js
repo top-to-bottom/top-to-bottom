@@ -79,13 +79,13 @@ class Navbar extends React.Component {
 
   onChange = event => {
     const search = event.target.value
-    console.log(event.target)
     this.setState({search})
   }
 
   onSubmit = event => {
     event.preventDefault()
-    console.log('I press enter')
+    this.props.history.push(`/products?search=${this.state.search}`)
+    this.setState({search: ''})
   }
 
   render() {
@@ -164,9 +164,11 @@ class Navbar extends React.Component {
 /**
  * CONTAINER
  */
-const mapState = state => {
+const mapState = (state, ownProps) => {
   return {
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    state,
+    ownProps
   }
 }
 
