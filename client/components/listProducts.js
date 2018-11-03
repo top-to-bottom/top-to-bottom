@@ -4,15 +4,22 @@ import {Link} from 'react-router-dom'
 import {ListProductsCard} from './index'
 import {allProducts} from '../store/products'
 
-const mapState = ({products}) => {
-  return {products}
+const mapState = ({products}, ownProps) => {
+  const search = ownProps.location.search
+  return {products, search}
 }
 
 const mapDispatch = {allProducts}
 
 class listProducts extends React.Component {
   componentDidMount() {
-    this.props.allProducts()
+    this.props.allProducts(this.props.search)
+  }
+
+  componentDidUpdate(prevProps) {
+    if (this.props.location.search !== prevProps.location.search) {
+      this.props.allProducts(this.props.search)
+    }
   }
 
   render() {
