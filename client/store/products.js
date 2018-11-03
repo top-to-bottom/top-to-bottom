@@ -20,7 +20,7 @@ export const getProducts = products => {
   }
 }
 
-export const addProduct = newProduct =>  {
+export const addProduct = newProduct => {
   return {
     type: ADD_PRODUCT,
     newProduct
@@ -30,9 +30,9 @@ export const addProduct = newProduct =>  {
 /**
  * THUNK CREATORS
  */
-export const allProducts = () => async dispatch => {
+export const allProducts = search => async dispatch => {
   try {
-    const {data: products} = await axios.get('/api/products')
+    const {data: products} = await axios.get(`/api/products${search}`)
     const action = getProducts(products)
     dispatch(action)
   } catch (err) {
@@ -40,11 +40,11 @@ export const allProducts = () => async dispatch => {
   }
 }
 
-export const createProduct = (newProduct) => async dispatch => {
+export const createProduct = newProduct => async dispatch => {
   try {
     const {data: newestProduct} = await axios.post('/api/products/', newProduct)
     const action = addProduct(newestProduct)
-    dispatch(action);
+    dispatch(action)
   } catch (err) {
     console.error(err)
   }

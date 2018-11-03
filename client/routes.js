@@ -15,7 +15,10 @@ import {
   Orders,
   Home,
   CategoryList,
-  singleUser
+  singleUser,
+  AdminHome,
+  Navbar,
+  Sidebar
 } from './components'
 
 import {me} from './store'
@@ -31,32 +34,43 @@ class Routes extends Component {
   }
 
   render() {
-    const {isLoggedIn} = this.props
+    const {isLoggedIn, isAdmin} = this.props
 
     return (
-      <Switch>
-        {/* Routes placed here are available to all visitors */}
-        <Route path="/login" component={Login} />
-        <Route path="/signup" component={Signup} />
-        <Route exact path="/products" component={listProducts} />
-        <Route exact path="/products/add" component={addProduct} />
-        <Route path="/products/category/:category" component={CategoryList} />
-        <Route path="/products/:id/edit" component={updateProduct} />
-        <Route path="/products/:id" component={SingleProduct} />
-        <Route exact path="/users" component={UsersList} />
-        <Route path="/users/:id" component={singleUser} />
+      <React.Fragment>
+        <Route path="*" component={Navbar} />
+        <Sidebar />
+        <Switch>
+          {/* Routes placed here are available to all visitors */}
+          <Route path="/login" component={Login} />
+          <Route path="/signup" component={Signup} />
+          <Route exact path="/products" component={listProducts} />
+          <Route exact path="/products/add" component={addProduct} />
+          <Route path="/products/category/:category" component={CategoryList} />
+          <Route path="/products/:id/edit" component={updateProduct} />
+          <Route path="/products/:id" component={SingleProduct} />
+          <Route exact path="/users" component={UsersList} />
+          <Route path="/users/:id" component={singleUser} />
 
-        {isLoggedIn && (
-          <Switch>
-            {/* Routes placed here are only available after logging in */}
-            <Route path="/home" component={UserHome} />
-            <Route path="/orders" component={Orders} />
-            <Route path="/" component={UserHome} />
-          </Switch>
-        )}
-        {/* Displays our Login component as a fallback */}
-        <Route path="/" component={Home} />
-      </Switch>
+          {isLoggedIn && (
+            <Switch>
+              {/* Routes placed here are only available after logging in */}
+              {isAdmin && (
+                <Switch>
+                  {/* Routes placed here are only available for admins after logging in */}
+                  <Route path="/home" component={AdminHome} />
+                </Switch>
+              )}
+              <Route path="/home" component={UserHome} />
+              <Route path="/orders" component={Orders} />
+              <Route path="/" component={UserHome} />
+            </Switch>
+          )}
+
+          {/* Displays our Home component as a fallback */}
+          <Route path="/" component={Home} />
+        </Switch>
+      </React.Fragment>
     )
   }
 }
@@ -68,7 +82,8 @@ const mapState = state => {
   return {
     // Being 'logged in' for our purposes will be defined has having a state.user that has a truthy id.
     // Otherwise, state.user will be an empty object, and state.user.id will be falsey
-    isLoggedIn: !!state.user.id
+    isLoggedIn: !!state.user.id,
+    isAdmin: state.user.isAdmin
   }
 }
 
