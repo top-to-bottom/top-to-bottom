@@ -1,29 +1,23 @@
+import axios from 'axios'
 /**
  * ACTION TYPES
  */
 
-const ADD_ITEM_TO_CART = 'ADD_ITEM_TO_CART'
-const REMOVE_ITEM_FROM_CART = 'REMOVE_ITEM_FROM_CART'
+const SET_CART_DATA = 'SET_CART_DATA'
 
 /**
  * INITIAL STATE
  */
 
+const initialCart = {}
+
 /**
  * ACTION CREATORS
  */
-
-export const addItemToCart = item => {
+export const setCartData = cart => {
   return {
-    type: ADD_ITEM_TO_CART,
-    item
-  }
-}
-
-export const removeItemFromCart = item => {
-  return {
-    type: REMOVE_ITEM_FROM_CART,
-    item
+    type: SET_CART_DATA,
+    cart
   }
 }
 
@@ -31,18 +25,33 @@ export const removeItemFromCart = item => {
  * THUNK CREATORS
  */
 
+export const fetchUserCart = () => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    let userId = state.user.id
+    const cartResponse = await axios.get(`/api/cart/${userId}`)
+    const cart = cartResponse.data
+    dispatch(setCartData(cart))
+  }
+}
+
+export const addProductToCart = product => {
+  return async (dispatch, getState) => {
+    const state = getState()
+    let userId = state.user.id
+    await axios.put(`/api/cart/${userId}`, product)
+
+    dispatch(fetchUserCart())
+  }
+}
+
 /**
  * REDUCER
  */
-export default (state = [], action) => {
+export default (state = initialCart, action) => {
   switch (action.type) {
-    case ADD_ITEM_TO_CART:
-      return [...state, action.item]
-    case REMOVE_ITEM_FROM_CART: {
-      const newArr = state.filter(item => {
-        return item.id !== action.item.id
-      })
-      return newArr
+    case SET_CART_DATA: {
+      return action.cart
     }
     default:
       return state

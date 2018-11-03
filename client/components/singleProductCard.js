@@ -10,7 +10,7 @@ import CardMedia from '@material-ui/core/CardMedia'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
 import Icon from '@material-ui/core/Icon'
-import {addItemToCart} from '../store/cart'
+import {addProductToCart} from '../store/cart'
 import {connect} from 'react-redux'
 
 const styles = {
@@ -106,6 +106,7 @@ const SingleProductCard = props => {
           color="primary"
           onClick={() => {
             props.addToCart(product)
+            console.log('helow ork')
           }}
         >
           Add to cart
@@ -118,7 +119,7 @@ const SingleProductCard = props => {
 const mapDispatchToProps = dispatch => {
   return {
     addToCart: product => {
-      dispatch(addItemToCart(product))
+      dispatch(addProductToCart(product))
     }
   }
 }

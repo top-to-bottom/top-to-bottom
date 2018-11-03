@@ -13,6 +13,8 @@ import SearchIcon from '@material-ui/icons/Search'
 import ShoppingCartIcon from '@material-ui/icons/ShoppingCart'
 import {fade} from '@material-ui/core/styles/colorManipulator'
 import {changeSidemenu} from '../store/sidemenu'
+import {fetchUserCart} from '../store/cart'
+import Badge from '@material-ui/core/Badge'
 
 const styles = theme => {
   return {
@@ -150,7 +152,13 @@ class Navbar extends React.Component {
               )}
               <Link to="/" className={classes.link}>
                 <IconButton color="inherit">
-                  <ShoppingCartIcon />
+                  {this.props.quantity === 0 ? (
+                    <ShoppingCartIcon />
+                  ) : (
+                    <Badge badgeContent={this.props.quantity} color="secondary">
+                      <ShoppingCartIcon />
+                    </Badge>
+                  )}
                 </IconButton>
               </Link>
             </div>
@@ -165,10 +173,18 @@ class Navbar extends React.Component {
  * CONTAINER
  */
 const mapState = (state, ownProps) => {
+  let quantity = 0
+  if (state.cart.cartData) {
+    quantity = state.cart.cartData.reduce((acc, elem) => {
+      return elem.quantity + acc
+    }, 0)
+  }
+
   return {
     isLoggedIn: !!state.user.id,
     state,
-    ownProps
+    ownProps,
+    quantity
   }
 }
 
@@ -177,7 +193,8 @@ const mapDispatch = dispatch => {
     logout() {
       dispatch(logout())
     },
-    openSideBar: () => dispatch(changeSidemenu(true))
+    openSideBar: () => dispatch(changeSidemenu(true)),
+    fetchCartCount: () => dispatch(fetchUserCart())
   }
 }
 
