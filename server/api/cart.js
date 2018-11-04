@@ -113,11 +113,19 @@ router.put('/:userId', async (req, res, next) => {
         res.sendStatus(404)
       }
     }
-    // const productId = req.body.productId
-    // console.log('productId', productId, 'SessionId', req.session.id)
-    // const cart = await Cart.findOne({where: {sessionId: req.session.id}})
-    // await cart.addProducts([productId])
-    // res.sendStatus(201)
+  } catch (err) {
+    next(err)
+  }
+})
+
+router.delete('/:id', async (req, res, next) => {
+  try {
+    await CartData.destroy({
+      where: {
+        id: Number(req.params.id)
+      }
+    })
+    res.sendStatus(202)
   } catch (err) {
     next(err)
   }
