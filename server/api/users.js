@@ -29,7 +29,7 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const user = await User.findById(id, {attributes: ['id', 'email', 'imageUrl', 'firstName', 'lastName']})
+    const user = await User.findById(id, {attributes: ['id', 'email', 'imageUrl', 'firstName', 'lastName', 'isAdmin']})
     res.json(user)
   } catch (error) {
     next(error)
