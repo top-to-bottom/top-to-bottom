@@ -4,6 +4,7 @@ import axios from 'axios'
 
 const GET_PRODUCT = 'GET_PRODUCT'
 const UPDATE_PRODUCT = 'UPDATE_PRODUCT'
+const ADD_REVIEW = 'ADD_REVIEW'
 
 //CREATORS
 
@@ -15,6 +16,11 @@ const getProduct = product => ({
 const updateProduct = updatedProduct => ({
   type: UPDATE_PRODUCT,
   updatedProduct
+})
+
+const createReview = newReview => ({
+  type: ADD_REVIEW,
+  newReview
 })
 
 //THUNK
@@ -39,6 +45,12 @@ export const editProduct = updatedProduct => async dispatch => {
   }
 }
 
+export const addReview = newReview => async dispatch => {
+  const {data: newestReview} = await axios.post('/api/reviews/', newReview)
+  const action = createReview(newestReview)
+  dispatch(action)
+}
+
 //REDUCER
 
 export default (state = {}, action) => {
@@ -48,6 +60,11 @@ export default (state = {}, action) => {
 
     case UPDATE_PRODUCT:
       return action.updatedProduct
+
+    case ADD_REVIEW:
+      return {
+        ...state, reviews: [...state.reviews, action.newReview]
+      }
 
     default:
       return state

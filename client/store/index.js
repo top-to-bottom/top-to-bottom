@@ -8,7 +8,6 @@ import openMenu from './sidemenu'
 import product from './product'
 import cart from './cart'
 import users from './users'
-//import deleteUsers from './users'
 import orders from './orders'
 
 const reducer = combineReducers({
