@@ -41,8 +41,11 @@ class CartItem extends React.Component {
 
           <label>Quantity: {this.props.cartItem.quantity}</label>
 
-          <label>Price: ${this.props.cartItem.price}</label>
+          <label>
+            Price: {numeral(this.props.cartItem.price / 100).format('$0,0.00')}
+          </label>
           <button
+            type="button"
             style={{
               display: 'flex',
               alignSelf: 'center',
