@@ -15,7 +15,6 @@ const getOrders = order => ({
 
 export const fetchOrder = id => async dispatch => {
   const {data: order} = await axios.get(`/api/orders/${id}`)
-  console.log('store order', order)
   dispatch(getOrders(order))
 }
 
