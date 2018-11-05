@@ -45,6 +45,13 @@ export const addProductToCart = product => {
   }
 }
 
+export const removeCartItem = cartItemId => {
+  return async dispatch => {
+    await axios.delete(`/api/cart/${cartItemId}`)
+    dispatch(fetchUserCart())
+  }
+}
+
 /**
  * REDUCER
  */

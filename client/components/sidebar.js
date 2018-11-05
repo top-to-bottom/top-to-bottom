@@ -74,7 +74,6 @@ const mapDispatchToProps = dispatch => {
   return {
     closeSideBar: () => {
       dispatch(changeSidemenu(false))
-      console.log('Close Side menu')
     }
   }
 }

@@ -106,7 +106,7 @@ class Navbar extends React.Component {
             >
               <MenuIcon />
             </IconButton>
-            <Link to="/" className={classes.link}>
+            <Link to="/home" className={classes.link}>
               <Typography variant="h4" color="inherit" noWrap>
                 TOP-TO-BOTTOM
               </Typography>
@@ -150,7 +150,7 @@ class Navbar extends React.Component {
                   </IconButton>
                 </div>
               )}
-              <Link to="/" className={classes.link}>
+              <Link to="/cart" className={classes.link}>
                 <IconButton color="inherit">
                   {this.props.quantity === 0 ? (
                     <ShoppingCartIcon />
