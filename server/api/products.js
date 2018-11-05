@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const {Product, Review, Category} = require('../db/models')
 const Sequelize = require('sequelize')
+const {isAdminMW} = require('../middleware/auth')
 const Op = Sequelize.Op
 module.exports = router
 
@@ -9,7 +10,7 @@ router.get('/', async (req, res, next) => {
     const products = await Product.findAll({
       include: Category,
       where: req.query.search
-        ? {name: {[Op.iLike]: `%${req.query.search}%`}}
+        ? {name: {[Op.iLike]: `% ${req.query.search}%`}}
         : {}
     })
     res.json(products)
@@ -49,7 +50,7 @@ router.put('/:id', async (req, res, next) => {
   }
 })
 
-router.delete('/:id', async (req, res, next) => {
+router.delete('/:id', isAdminMW, async (req, res, next) => {
   try {
     const id = req.params.id
     await Product.destroy({where: {id}})

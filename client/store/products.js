@@ -32,7 +32,9 @@ export const addProduct = newProduct => {
  */
 export const allProducts = search => async dispatch => {
   try {
-    const {data: products} = await axios.get(`/api/products${search}`)
+    const {data: products} = await axios.get(
+      `/api/products${search ? search : ''}`
+    )
     const action = getProducts(products)
     dispatch(action)
   } catch (err) {
