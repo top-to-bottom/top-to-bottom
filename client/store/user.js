@@ -58,7 +58,6 @@ export const logout = () => async dispatch => {
 
 export const setUser = id => async dispatch =>  {
   const {data: user} = await axios.get(`/api/users/${id}`)
-  console.log('WHAT IS USER HERE:', user)
   dispatch(getUser(user))
 }
 
