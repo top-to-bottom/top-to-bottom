@@ -18,7 +18,8 @@ import {
   singleUser,
   AdminHome,
   Navbar,
-  Sidebar
+  Sidebar,
+  addReviewForm
 } from './components'
 
 import {me} from './store'
@@ -47,12 +48,13 @@ class Routes extends Component {
           <Route path="/signup" component={Signup} />
           <Route exact path="/products" component={listProducts} />
           <Route exact path="/products/add" component={addProduct} />
+          <Route path="/products/category/:category" component={CategoryList} />
+          <Route exact path="/products/:id/edit" component={updateProduct} />
           <Route
             exact
-            path="/products/category/:category"
-            component={CategoryList}
+            path="/products/:id/reviews/add"
+            component={addReviewForm}
           />
-          <Route exact path="/products/:id/edit" component={updateProduct} />
           <Route exact path="/products/:id" component={SingleProduct} />
           <Route exact path="/users" component={UsersList} />
           <Route path="/users/:id" component={singleUser} />

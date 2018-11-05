@@ -31,12 +31,15 @@ if (!process.env.GOOGLE_CLIENT_ID || !process.env.GOOGLE_CLIENT_SECRET) {
     googleConfig,
     (token, refreshToken, profile, done) => {
       const googleId = profile.id
-      const name = profile.displayName
+      const username = profile.displayName.replace(' ', '')
+      const firstName = profile.name.givenName
+      const lastName = profile.name.familyName
       const email = profile.emails[0].value
+      const isAdmin = false;
 
       User.findOrCreate({
         where: {googleId},
-        defaults: {name, email}
+        defaults: {firstName, lastName, username, email, isAdmin}
       })
         .then(([user]) => done(null, user))
         .catch(done)

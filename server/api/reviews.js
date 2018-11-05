@@ -1,26 +1,23 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {Review, Product, User} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
   try {
-    const users = await User.findAll({
-      // explicitly select only the id and email fields - even though
-      // users' passwords are encrypted, it won't help if we just
-      // send everything to anyone who asks!
-      attributes: ['id', 'email']
+    const reviews = await Review.findAll({
+      include: [{model: Product}]
     })
-    res.json(users)
-  } catch (err) {
-    next(err)
+    res.json(reviews)
+  } catch (error) {
+    next(error)
   }
 })
 
 router.post('/', async (req, res, next) => {
   try {
-    const user = await User.create(req.body)
+    const review = await Review.create(req.body)
     res.status(201)
-    res.json(user)
+    res.json(review)
   } catch (error) {
     next(error)
   }
@@ -29,8 +26,8 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const user = await User.findById(id, {attributes: ['id', 'email', 'imageUrl', 'firstName', 'lastName', 'isAdmin']})
-    res.json(user)
+    const review = await Review.findById(id, {include: [Product, User]})
+    res.json(review)
   } catch (error) {
     next(error)
   }
@@ -39,8 +36,8 @@ router.get('/:id', async (req, res, next) => {
 router.put('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const user = req.body
-    const {data} = await User.update(user, {where: {id}})
+    const review = req.body
+    const {data} = await Review.update(review, {where: {id}})
     res.json(data)
   } catch (error) {
     next(error)
@@ -50,7 +47,7 @@ router.put('/:id', async (req, res, next) => {
 router.delete('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    await User.destroy({where: {id}})
+    await Review.destroy({where: {id}})
     res.sendStatus(204)
   } catch (error) {
     next(error)
