@@ -20,7 +20,6 @@ class SingleOrder extends React.Component {
 
   render() {
     const {order} = this.props
-    console.log('here', order)
     return (
       <React.Fragment>
         {!!order.id && <SingleOrderTable order={order} />}
