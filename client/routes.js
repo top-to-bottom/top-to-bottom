@@ -20,12 +20,12 @@ import {
   Navbar,
   Sidebar,
   addReviewForm,
-  SingleOrder
+  SingleOrder,
+  Cart
 } from './components'
 
 import {me} from './store'
 import {fetchUserCart} from './store/cart'
-import Cart from './components/Cart'
 
 /**
  * COMPONENT
