@@ -14,7 +14,13 @@ export const AdminHome = props => {
   return (
     <div>
       <h3>Welcome, Admin {email}</h3>
-      <Link to="/orders">Review past Orders</Link>
+      <h4>
+        <Link to="/me/orders">Review my past Orders</Link>
+      </h4>
+      <h4>
+        {' '}
+        <Link to="/orders">Review All Orders</Link>
+      </h4>
       <HomeList />
     </div>
   )
