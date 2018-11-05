@@ -118,6 +118,30 @@ router.put('/:userId', async (req, res, next) => {
   }
 })
 
+router.put('/cartItem/:cartItemId', async (req, res, next) => {
+  try {
+    const cartItemId = req.params.cartItemId
+    const cartItem = await CartData.findOne({
+      where: {id: cartItemId},
+      include: [{model: Product}]
+    })
+    const newQuantity = req.body.quantity
+    if (newQuantity < 1) {
+      await cartItem.destroy()
+      res.sendStatus(202)
+    } else {
+      //[numUpdated, updatedItems]
+      const updatedCartItem = await cartItem.update({
+        quantity: newQuantity,
+        price: cartItem.product.price * newQuantity
+      })
+      res.send(updatedCartItem)
+    }
+  } catch (err) {
+    next(err)
+  }
+})
+
 router.delete('/:id', async (req, res, next) => {
   try {
     await CartData.destroy({
