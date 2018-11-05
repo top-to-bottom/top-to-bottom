@@ -14,7 +14,6 @@ const mapDispatch = {fetchOrder}
 
 class SingleOrder extends React.Component {
   componentDidMount() {
-    console.log('why is not here?')
     this.props.fetchOrder(this.props.id)
   }
 
