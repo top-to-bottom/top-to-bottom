@@ -6,6 +6,7 @@ import history from '../history'
  */
 const SET_USER = 'SET_USER'
 const REMOVE_USER = 'REMOVE_USER'
+const MAKE_ADMIN = 'MAKE_ADMIN'
 
 /**
  * INITIAL STATE
@@ -17,6 +18,7 @@ const defaultUser = {}
  */
 const getUser = user => ({type: SET_USER, user})
 const removeUser = () => ({type: REMOVE_USER})
+const makeAdmin = newAdmin => ({type: MAKE_ADMIN, newAdmin})
 
 /**
  * THUNK CREATORS
@@ -56,9 +58,20 @@ export const logout = () => async dispatch => {
   }
 }
 
-export const setUser = id => async dispatch =>  {
+export const setUser = id => async dispatch => {
   const {data: user} = await axios.get(`/api/users/${id}`)
   dispatch(getUser(user))
+}
+
+export const setAdmin = selectedUser => async dispatch => {
+  const updatedUser = {...selectedUser, isAdmin: true}
+  const newAdmin = await axios.put(`/api/users/${updatedUser.id}`, updatedUser)
+  if (!newAdmin) {
+    return new Error()
+  } else {
+    const {data: user} = await axios.get(`/api/users/${updatedUser.id}`)
+    dispatch(makeAdmin(user))
+  }
 }
 
 /**
@@ -70,6 +83,10 @@ export default function(state = defaultUser, action) {
       return action.user
     case REMOVE_USER:
       return defaultUser
+
+    case MAKE_ADMIN:
+      return action.newAdmin
+
     default:
       return state
   }
