@@ -1,4 +1,5 @@
 import axios from 'axios'
+import {updateProductsWhenOrdered} from './products';
 
 //TYPES
 
@@ -26,6 +27,7 @@ export const fetchOrders = isMe => async dispatch => {
 
 export const createOrder = (address, cartId) => async dispatch => {
   const {data: order} = await axios.post('/api/orders', {address, cartId})
+  console.log('ORDER IN CREATE ORDER REDUCER THUNKN', order)
   dispatch(addOrder(order))
 }
 

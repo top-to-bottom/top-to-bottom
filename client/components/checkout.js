@@ -109,7 +109,6 @@ class Checkout extends React.Component {
         })
         .then(() => {
           this.setState(state => {
-            console.log('inside', this.state)
             return {activeStep: state.activeStep + 1}
           })
         })
@@ -139,6 +138,7 @@ class Checkout extends React.Component {
         zipCode: zip
       }
       this.order = this.props.createOrder(address, this.props.cart.id)
+      console.log('this.order.props.cart IN CHECKOUT', this.order.props.cart)
       this.props.emptyCart()
     }
   }

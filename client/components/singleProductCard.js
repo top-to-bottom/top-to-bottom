@@ -106,7 +106,6 @@ const SingleProductCard = props => {
           color="primary"
           onClick={() => {
             props.addToCart(product)
-            console.log('helow ork')
           }}
         >
           Add to cart
