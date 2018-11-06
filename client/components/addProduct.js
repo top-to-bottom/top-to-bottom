@@ -4,6 +4,7 @@ import {connect} from 'react-redux'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
+import { allCategories } from '../store/categories';
 
 const styles = theme => ({
   container: {
@@ -25,28 +26,17 @@ const styles = theme => ({
 
 function mapState(state) {
   return {
-    products: state.products
+    products: state.products,
+    categories: state.categories
   }
 }
 
 function mapDispatch(dispatch) {
   return {
-    submit: newProduct => dispatch(createProduct(newProduct))
+    submit: newProduct => dispatch(createProduct(newProduct)),
+    fetchCategories: () => dispatch(allCategories())
   }
 }
-
-// ** TO DO / UPDATE ** //
-const categories = [
-  {
-    id: 1,
-    name: 'Hats'
-  },
-  {
-    id: 2,
-    name: 'Shoes'
-  }
-]
-// Update categories after creation of Category Store (fetchCategories, AddCategories, etc). This is a temporary solution to confirm functionality on addProduct page. //
 
 export class addProduct extends Component {
   constructor() {
@@ -87,8 +77,12 @@ export class addProduct extends Component {
     }
   }
 
+  componentDidMount() {
+    this.props.fetchCategories()
+  }
+
   render() {
-    const {classes} = this.props
+    const {classes, categories} = this.props
     return (
       <div>
         <main>
@@ -150,7 +144,7 @@ export class addProduct extends Component {
               id="product-category"
               select
               required
-              label="Category"
+              label="Category (Start with one, you can add more later.)"
               className={classes.textField}
               value={this.state.categoryId}
               onChange={evt => this.setState({categoryId: evt.target.value})}
@@ -163,7 +157,7 @@ export class addProduct extends Component {
               margin="normal"
               variant="outlined"
             >
-              {categories.map(category => (
+              {!!categories.length && categories.map(category => (
                 <option key={category.id} value={category.id}>
                   {category.name}
                 </option>

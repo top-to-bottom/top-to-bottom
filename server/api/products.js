@@ -32,7 +32,7 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const product = await Product.findById(id, {include: Review})
+    const product = await Product.findById(id, {include: Category, Review})
     res.json(product)
   } catch (error) {
     next(error)

@@ -19,7 +19,8 @@ import {
   AdminHome,
   Navbar,
   Sidebar,
-  addReviewForm
+  addReviewForm,
+  addCategory
 } from './components'
 
 import {me} from './store'
@@ -59,6 +60,7 @@ class Routes extends Component {
           <Route exact path="/users" component={UsersList} />
           <Route path="/users/:id" component={singleUser} />
           <Route path="/cart" component={Cart} />
+          <Route path="/categories/add" component={addCategory} />
 
           {isLoggedIn && (
             <Switch>
