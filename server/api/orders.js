@@ -68,6 +68,8 @@ router.post('/', async (req, res, next) => {
     res.json(order)
   } catch (error) {
     next(error)
+  }
+})
 
 router.put('/:id', isAdminMW, async (req, res, next) => {
   try {
