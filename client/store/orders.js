@@ -13,8 +13,8 @@ const getOrders = orders => ({
 
 //THUNK
 
-export const fetchOrders = () => async dispatch => {
-  const {data: orders} = await axios.get('/api/orders')
+export const fetchOrders = isMe => async dispatch => {
+  const {data: orders} = await axios.get(`/api/orders/${isMe ? 'me' : ''}`)
   dispatch(getOrders(orders))
 }
 

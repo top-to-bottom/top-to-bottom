@@ -2,9 +2,22 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {Link} from 'react-router-dom'
 
-import {removeCartItem} from '../store/cart'
+import {removeCartItem, updateCartItem} from '../store/cart'
 
 class CartItem extends React.Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      quantity: props.cartItem.quantity
+    }
+    this.handleQuantityUpdate = this.handleQuantityUpdate.bind(this)
+  }
+
+  handleQuantityUpdate(e) {
+    e.preventDefault()
+    this.props.updateCartItem(this.props.cartItem, this.state.quantity)
+  }
+
   render() {
     return (
       <div
@@ -39,11 +52,29 @@ class CartItem extends React.Component {
             <label>{this.props.cartItem.product.name}</label>
           </Link>
 
-          <label>Quantity: {this.props.cartItem.quantity}</label>
+          <div>Quantity: {this.props.cartItem.quantity}</div>
 
-          <label>
+          <div>
             Price: {numeral(this.props.cartItem.price / 100).format('$0,0.00')}
-          </label>
+          </div>
+
+          {''}
+
+          <form onSubmit={this.handleQuantityUpdate}>
+            <label>Quantity</label>
+
+            <input
+              type="number"
+              name="quantity"
+              min="0"
+              max="10"
+              value={this.state.quantity}
+              onChange={event => {
+                this.setState({quantity: event.target.value})
+              }}
+            />
+            <button>Update</button>
+          </form>
           <button
             type="button"
             style={{
@@ -66,7 +97,9 @@ class CartItem extends React.Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    removeItemFromCart: itemId => dispatch(removeCartItem(itemId))
+    removeItemFromCart: itemId => dispatch(removeCartItem(itemId)),
+    updateCartItem: (cartItem, newQuantity) =>
+      dispatch(updateCartItem(cartItem, newQuantity))
   }
 }
 

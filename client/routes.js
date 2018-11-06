@@ -20,12 +20,13 @@ import {
   Navbar,
   Sidebar,
   addReviewForm,
-  addCategory
+  addCategory,
+  SingleOrder,
+  Cart
 } from './components'
 
 import {me} from './store'
 import {fetchUserCart} from './store/cart'
-import Cart from './components/Cart'
 
 /**
  * COMPONENT
@@ -65,14 +66,17 @@ class Routes extends Component {
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in */}
+              <Route path="/me/orders" component={Orders} />
               {isAdmin && (
                 <Switch>
                   {/* Routes placed here are only available for admins after logging in */}
                   <Route path="/home" component={AdminHome} />
+                  <Route path="/orders/:id" component={SingleOrder} />
+                  <Route path="/orders" component={Orders} />
+                  <Route path="/" component={AdminHome} />
                 </Switch>
               )}
               <Route path="/home" component={UserHome} />
-              <Route path="/orders" component={Orders} />
               <Route path="/" component={UserHome} />
             </Switch>
           )}

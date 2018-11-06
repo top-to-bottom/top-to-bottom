@@ -44,6 +44,15 @@ export const addProductToCart = product => {
     dispatch(fetchUserCart())
   }
 }
+export const updateCartItem = (cartItem, newQuantity) => {
+  return async dispatch => {
+    const response = await axios.put(`/api/cart/cartItem/${cartItem.id}`, {
+      quantity: newQuantity
+    })
+
+    dispatch(fetchUserCart())
+  }
+}
 
 export const removeCartItem = cartItemId => {
   return async dispatch => {

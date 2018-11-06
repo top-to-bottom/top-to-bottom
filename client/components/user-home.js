@@ -14,7 +14,9 @@ export const UserHome = props => {
   return (
     <div>
       <h3>Welcome, {email}</h3>
-      <Link to="/orders">Review past Orders</Link>
+      <h4>
+        <Link to="/me/orders">Review my past Orders</Link>
+      </h4>
       <HomeList />
     </div>
   )
