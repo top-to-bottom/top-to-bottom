@@ -16,7 +16,9 @@ const CartData = require('./cartData')
  *    BlogPost.belongsTo(User)
  */
 
-Product.belongsTo(Category)
+Product.belongsToMany(Category, {through: 'product_categories'})
+Category.belongsToMany(Product, {through: 'product_categories'})
+
 Product.hasMany(Review)
 
 OrderData.belongsTo(Order)
