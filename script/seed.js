@@ -40,12 +40,18 @@ async function seed() {
 
   const addresses = await Promise.all([
     Address.create({
+      firstName: 'john',
+      lastName: 'doe',
+      email: 'john@doe.com',
       streetAddress: '123 Place St',
       city: 'Chicago',
       state: 'IL',
       zipCode: '12345'
     }),
     Address.create({
+      firstName: 'emily',
+      lastName: 'cubs',
+      email: 'Ilove@cubs.com',
       streetAddress: '908 Cool Road',
       city: 'New York',
       state: 'NY',

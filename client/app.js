@@ -1,11 +1,14 @@
 import React from 'react'
+import {StripeProvider} from 'react-stripe-elements'
 
 import Routes from './routes'
 
 const App = () => {
   return (
     <div>
-      <Routes />
+      <StripeProvider apiKey="pk_test_ZvcYJgBrblGo1Rbpz1pKGtBt">
+        <Routes />
+      </StripeProvider>
     </div>
   )
 }
