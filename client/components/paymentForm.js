@@ -11,10 +11,10 @@ function PaymentForm() {
         Payment method
       </Typography>
       <Grid container spacing={24}>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <TextField required id="cardName" label="Name on card" fullWidth />
         </Grid>
-        <Grid item xs={12} md={6}>
+        <Grid item xs={12}>
           <CardElement style={{base: {fontSize: '18px'}}} />
         </Grid>
       </Grid>
