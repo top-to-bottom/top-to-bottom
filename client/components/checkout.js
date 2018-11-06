@@ -15,7 +15,7 @@ import FormControl from '@material-ui/core/FormControl'
 
 import AddressForm from './addressForm'
 import PaymentForm from './paymentForm'
-import Review from './Review'
+import Review from './review'
 import {createOrder} from '../store/orders'
 import {emptyCart} from '../store/cart'
 
