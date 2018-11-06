@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {addCartItems, fetchUserCart} from './cart'
 
 /**
  * ACTION TYPES
@@ -32,8 +33,11 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async dispatch => {
+export const auth = (email, password, method) => async (dispatch, getState) => {
   let res
+  const state = getState()
+  const currentCart = state.cart
+  const currentCartData = currentCart.cartData || []
   try {
     res = await axios.post(`/auth/${method}`, {email, password})
   } catch (authError) {
@@ -42,6 +46,10 @@ export const auth = (email, password, method) => async dispatch => {
 
   try {
     dispatch(getUser(res.data))
+
+    await dispatch(fetchUserCart())
+    dispatch(addCartItems(currentCartData))
+
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
