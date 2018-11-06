@@ -21,6 +21,7 @@ import {
   Navbar,
   Sidebar,
   addReviewForm,
+  addCategory,
   SingleOrder,
   Cart,
   Checkout
@@ -65,6 +66,8 @@ class Routes extends Component {
           {/* <Elements> */}
           <Route path="/checkout" component={Checkout} />
           {/* </Elements> */}
+          <Route path="/categories/add" component={addCategory} />
+
 
           {isLoggedIn && (
             <Switch>

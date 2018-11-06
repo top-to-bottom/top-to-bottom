@@ -175,9 +175,7 @@ class Navbar extends React.Component {
 const mapState = (state, ownProps) => {
   let quantity = 0
   if (state.cart.cartData) {
-    quantity = state.cart.cartData.reduce((acc, elem) => {
-      return elem.quantity + acc
-    }, 0)
+    quantity = state.cart.cartData.length
   }
 
   return {
