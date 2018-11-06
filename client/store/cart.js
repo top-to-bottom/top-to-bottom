@@ -6,7 +6,6 @@ import axios from 'axios'
 
 const SET_CART_DATA = 'SET_CART_DATA'
 const ADD_CART_ITEMS = 'ADD_CART_ITEMS'
-const EMPTY_CART = 'EMPTY_CART'
 
 /**
  * INITIAL STATE
@@ -28,13 +27,6 @@ export const addCartItems = items => {
   return {
     type: ADD_CART_ITEMS,
     items
-  }
-}
-
-export const emptyCart = () => {
-  return {
-    type: SET_CART_DATA,
-    cart: []
   }
 }
 
