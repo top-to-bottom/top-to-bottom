@@ -1,6 +1,6 @@
 import React from 'react'
 import {connect} from 'react-redux'
-import {injectStripe} from 'react-stripe-elements'
+import {injectStripe, CardElement} from 'react-stripe-elements'
 
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -11,9 +11,10 @@ import Step from '@material-ui/core/Step'
 import StepLabel from '@material-ui/core/StepLabel'
 import Button from '@material-ui/core/Button'
 import Typography from '@material-ui/core/Typography'
+import FormControl from '@material-ui/core/FormControl'
 
 import AddressForm from './addressForm'
-import PaymentForm from './PaymentForm'
+import PaymentForm from './paymentForm'
 import Review from './Review'
 import {createOrder} from '../store/orders'
 import {emptyCart} from '../store/cart'
@@ -97,17 +98,27 @@ class Checkout extends React.Component {
     }
   }
 
-  handleNext = () => {
-    // if (this.state.activeStep === 1) {
-    //   this.props.stripe
-    //     .createToken({type: 'card', name: 'Jenny Rosen'})
-    //     .then(({token}) => {
-    //       console.log('Received Stripe token:', token)
-    //     })
-    // } stripe  Nathan
-    this.setState(state => ({
-      activeStep: state.activeStep + 1
-    }))
+  handleSubmit = e => {
+    e.preventDefault()
+    console.log(this.state)
+    if (this.state.activeStep === 1) {
+      this.props.stripe
+        .createToken({type: 'card', name: 'Jenny Rosen'})
+        .then(({token}) => {
+          console.log('Received Stripe token:', token)
+        })
+        .then(() => {
+          this.setState(state => {
+            console.log('inside', this.state)
+            return {activeStep: state.activeStep + 1}
+          })
+        })
+    }
+    if (this.state.activeStep === 0 || this.state.activeStep === 2) {
+      this.setState(state => ({
+        activeStep: state.activeStep + 1
+      }))
+    }
     if (this.state.activeStep === 2) {
       const {
         firstName,
@@ -169,7 +180,7 @@ class Checkout extends React.Component {
                 </Step>
               ))}
             </Stepper>
-            <React.Fragment>
+            <form onSubmit={this.handleSubmit}>
               {activeStep === steps.length ? (
                 <React.Fragment>
                   <Typography variant="h5" gutterBottom>
@@ -199,9 +210,10 @@ class Checkout extends React.Component {
                       </Button>
                     )}
                     <Button
+                      type="submit"
                       variant="contained"
                       color="primary"
-                      onClick={this.handleNext}
+                      // onClick={this.handleNext}
                       className={classes.button}
                     >
                       {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
@@ -209,7 +221,7 @@ class Checkout extends React.Component {
                   </div>
                 </React.Fragment>
               )}
-            </React.Fragment>
+            </form>
           </Paper>
         </main>
       </React.Fragment>
