@@ -18,6 +18,15 @@ export const fetchOrder = id => async dispatch => {
   dispatch(getOrders(order))
 }
 
+export const updateOrder = (id, newStatus) => {
+  return async dispatch => {
+    const response = await axios.put(`/api/orders/${id}`, {
+      status: newStatus
+    })
+    dispatch(getOrders(response.data))
+  }
+}
+
 //REDUCER
 
 export default (state = {}, action) => {

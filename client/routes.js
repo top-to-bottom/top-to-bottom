@@ -29,6 +29,7 @@ import {
 
 import {me} from './store'
 import {fetchUserCart} from './store/cart'
+import TestingEmail from './components/testing-email'
 
 /**
  * COMPONENT
@@ -48,6 +49,8 @@ class Routes extends Component {
         <Sidebar />
         <Switch>
           {/* Routes placed here are available to all visitors */}
+          <Route exact path="/testing-email" component={TestingEmail} />
+
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route exact path="/products" component={listProducts} />

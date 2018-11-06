@@ -78,8 +78,8 @@ function CustomizedTable(props) {
             <CustomTableCell component="th" scope="row">
               Total
             </CustomTableCell>
-            <CustomTableCell numeric> </CustomTableCell>
-            <CustomTableCell numeric> </CustomTableCell>
+            <CustomTableCell numeric />
+            <CustomTableCell numeric />
             <CustomTableCell numeric>
               {numeral(
                 order.orderData.reduce(

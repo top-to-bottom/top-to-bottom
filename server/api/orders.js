@@ -68,5 +68,18 @@ router.post('/', async (req, res, next) => {
     res.json(order)
   } catch (error) {
     next(error)
+
+router.put('/:id', isAdminMW, async (req, res, next) => {
+  try {
+    const order = await Order.findById(req.params.id, {
+      include: [
+        {model: User, attributes: ['email']},
+        {model: OrderData, include: Product}
+      ]
+    })
+    const updatedOrder = await order.update({status: req.body.status})
+    res.json(updatedOrder)
+  } catch (err) {
+    next(err)
   }
 })
