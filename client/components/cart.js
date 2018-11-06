@@ -1,5 +1,8 @@
 import React from 'react'
 import {connect} from 'react-redux'
+import Button from '@material-ui/core/Button'
+import {Link} from 'react-router-dom'
+
 import CartItem from './cartItem'
 
 class Cart extends React.Component {
@@ -34,6 +37,12 @@ class Cart extends React.Component {
             >
               <ul>Subtotal: {numeral(total / 100).format('$0,0.00')}</ul>
             </label>
+            <Link to="/checkout">
+              {' '}
+              <Button variant="contained" color="primary">
+                Checkout
+              </Button>
+            </Link>
           </div>
         )}
       </div>
