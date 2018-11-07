@@ -24,7 +24,6 @@ const styles = theme => {
 class Sidebar extends React.Component {
   componentDidMount() {
     this.props.allCategories()
-    console.log(this.categories)
   }
   render() {
     return (

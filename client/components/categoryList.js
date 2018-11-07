@@ -6,10 +6,10 @@ import {allProducts} from '../store/products'
 
 const mapState = ({products}, ownProps) => {
   const category = ownProps.match.params.category
-  // const productsFilter = products.filter(
-  //   product => product.category.name === category
-  // )
-  return {products}
+  const productsFilter = products.filter(product =>
+    product.categories.reduce((acc, cat) => acc || cat.name === category, false)
+  )
+  return {products: productsFilter}
 }
 
 const mapDispatch = {allProducts}

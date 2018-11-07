@@ -138,7 +138,7 @@ async function seed() {
       name: 'Fleece-lined Hat with Earflaps',
       description:
         'Soft knit hat with a pompom at top and earflaps. Fleece lining.',
-      price: 100000099,
+      price: 10000099,
       defaultImageUrl:
         'https://lp2.hm.com/hmgoepprod?set=source[/40/78/4078af7fc52620530628e8436dafc385c9928546.jpg],origin[dam],category[],type[DESCRIPTIVESTILLLIFE],res[m],hmver[1]&call=url[file:/product/main]'
     }).then(function(product) {
