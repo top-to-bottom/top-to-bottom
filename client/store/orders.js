@@ -25,7 +25,10 @@ export const fetchOrders = isMe => async dispatch => {
 }
 
 export const createOrder = (address, cartId) => async dispatch => {
+  const contactInfo = {...address, cartId: cartId}
   const {data: order} = await axios.post('/api/orders', {address, cartId})
+  order.customer = contactInfo;
+  await axios.post('/api/email/order-confirmation', order)
   dispatch(addOrder(order))
 }
 
