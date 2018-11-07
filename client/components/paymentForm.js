@@ -4,7 +4,7 @@ import Grid from '@material-ui/core/Grid'
 import TextField from '@material-ui/core/TextField'
 import {CardElement} from 'react-stripe-elements'
 
-function PaymentForm() {
+function PaymentForm(props) {
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>
@@ -12,7 +12,15 @@ function PaymentForm() {
       </Typography>
       <Grid container spacing={24}>
         <Grid item xs={12}>
-          <TextField required id="cardName" label="Name on card" fullWidth />
+          <TextField
+            required
+            id="cardName"
+            label="Name on card"
+            name="cardName"
+            value={props.cardName}
+            onChange={props.handleChange}
+            fullWidth
+          />
         </Grid>
         <Grid item xs={12}>
           <CardElement style={{base: {fontSize: '18px'}}} />

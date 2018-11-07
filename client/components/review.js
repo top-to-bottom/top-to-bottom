@@ -7,21 +7,6 @@ import ListItem from '@material-ui/core/ListItem'
 import ListItemText from '@material-ui/core/ListItemText'
 import Grid from '@material-ui/core/Grid'
 
-// const products = [
-//   {name: 'Product 1', desc: 'A nice thing', price: '$9.99'},
-//   {name: 'Product 2', desc: 'Another thing', price: '$3.45'},
-//   {name: 'Product 3', desc: 'Something else', price: '$6.51'},
-//   {name: 'Product 4', desc: 'Best thing of all', price: '$14.11'},
-//   {name: 'Shipping', desc: '', price: 'Free'}
-// ]
-
-const payments = [
-  {name: 'Card type', detail: 'Visa'},
-  {name: 'Card holder', detail: 'Mr John Smith'},
-  {name: 'Card number', detail: 'xxxx-xxxx-xxxx-1234'},
-  {name: 'Expiry date', detail: '04/2024'}
-]
-
 const styles = theme => ({
   listItem: {
     padding: `${theme.spacing.unit}px 0`
@@ -43,7 +28,15 @@ function Review(props) {
     price: item.product.price,
     quantity: item.quantity
   }))
+
   const total = products.reduce((accum, cur) => accum + cur.subTotal, 0)
+
+  const payments = [
+    {name: 'Card type', detail: 'Visa'},
+    {name: 'Card holder', detail: props.cardName},
+    {name: 'Card number', detail: 'xxxx-xxxx-xxxx-4242'},
+    {name: 'Expiry date', detail: '04/2024'}
+  ]
   return (
     <React.Fragment>
       <Typography variant="h6" gutterBottom>

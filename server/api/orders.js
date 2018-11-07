@@ -31,18 +31,18 @@ router.get('/', isAdminMW, async (req, res, next) => {
   }
 })
 
-router.get('/charge', async (req, res, next) => {
-  // const userId = req.user.id
-
-  const charge = await stripe.charges.create({
-    amount: 100,
-    currency: 'usd',
-    source: 'tok_visa',
-    receipt_email: 'jenny.rosen@example.com'
-  })
-
-  console.log(charge)
-  res.json(charge)
+router.post('/charge', async (req, res, next) => {
+  try {
+    const {status} = await stripe.charges.create({
+      amount: req.body.total,
+      currency: 'usd',
+      description: 'test charge',
+      source: req.body.token.id
+    })
+    res.json({status})
+  } catch (error) {
+    next(error)
+  }
 })
 
 router.get('/:id', isAdminMW, async (req, res, next) => {

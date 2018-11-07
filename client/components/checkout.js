@@ -1,6 +1,7 @@
 import React from 'react'
 import {connect} from 'react-redux'
 import {injectStripe, CardElement} from 'react-stripe-elements'
+import axios from 'axios'
 
 import PropTypes from 'prop-types'
 import withStyles from '@material-ui/core/styles/withStyles'
@@ -15,7 +16,7 @@ import FormControl from '@material-ui/core/FormControl'
 
 import AddressForm from './addressForm'
 import PaymentForm from './paymentForm'
-import Review from './Review'
+import Review from './review'
 import {createOrder} from '../store/orders'
 import {emptyCart} from '../store/cart'
 
@@ -63,7 +64,9 @@ function getStepContent(step, props, state, handleChange) {
     case 0:
       return <AddressForm {...state} handleChange={handleChange} />
     case 1:
-      return <PaymentForm />
+      return (
+        <PaymentForm cardName={state.cardName} handleChange={handleChange} />
+      )
     case 2:
       return <Review {...state} cart={props.cart} />
     default:
@@ -80,7 +83,8 @@ class Checkout extends React.Component {
     streetAddress: '',
     city: '',
     state: '',
-    zip: ''
+    zip: '',
+    cardName: ''
   }
 
   componentDidMount() {
@@ -99,19 +103,24 @@ class Checkout extends React.Component {
   }
 
   handleSubmit = e => {
+    const products = this.props.cart.cartData.map(item => ({
+      name: item.product.name,
+      subTotal: item.product.price * item.quantity,
+      price: item.product.price,
+      quantity: item.quantity
+    }))
+
+    const total = products.reduce((accum, cur) => accum + cur.subTotal, 0)
     e.preventDefault()
-    console.log(this.state)
     if (this.state.activeStep === 1) {
       this.props.stripe
-        .createToken({type: 'card', name: 'Jenny Rosen'})
+        .createToken({type: 'card', name: this.state.cardName})
         .then(({token}) => {
-          console.log('Received Stripe token:', token)
-        })
-        .then(() => {
+          const response = axios.post('/api/orders/charge', {token, total})
           this.setState(state => {
-            console.log('inside', this.state)
             return {activeStep: state.activeStep + 1}
           })
+          return response
         })
     }
     if (this.state.activeStep === 0 || this.state.activeStep === 2) {
@@ -213,7 +222,6 @@ class Checkout extends React.Component {
                       type="submit"
                       variant="contained"
                       color="primary"
-                      // onClick={this.handleNext}
                       className={classes.button}
                     >
                       {activeStep === steps.length - 1 ? 'Place order' : 'Next'}
