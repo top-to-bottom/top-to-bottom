@@ -1,7 +1,7 @@
 const router = require('express').Router()
 const nodemailer = require('nodemailer')
 const OrderData = require('../db/models/orderData')
-const Product = require('../db/models/Product')
+const Product = require('../db/models/product')
 module.exports = router
 
 router.post('/welcome', async (req, res, next) => {
