@@ -28,7 +28,6 @@ import {
 
 import {me} from './store'
 import {fetchUserCart} from './store/cart'
-import TestingEmail from './components/testing-email'
 
 /**
  * COMPONENT
@@ -48,38 +47,42 @@ class Routes extends Component {
         <Sidebar />
         <Switch>
           {/* Routes placed here are available to all visitors */}
-          <Route exact path="/testing-email" component={TestingEmail} />
 
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route exact path="/products" component={listProducts} />
-          <Route exact path="/products/add" component={addProduct} />
+
           <Route path="/products/category/:category" component={CategoryList} />
-          <Route exact path="/products/:id/edit" component={updateProduct} />
-          <Route
-            exact
-            path="/products/:id/reviews/add"
-            component={addReviewForm}
-          />
           <Route exact path="/products/:id" component={SingleProduct} />
-          <Route exact path="/users" component={UsersList} />
-          <Route path="/users/:id" component={singleUser} />
+
           <Route path="/cart" component={Cart} />
 
           <Route path="/checkout" component={ElementCheckout} />
 
-          <Route path="/categories/add" component={addCategory} />
-
           {isLoggedIn && (
             <Switch>
               {/* Routes placed here are only available after logging in */}
+              <Route
+                exact
+                path="/products/:id/reviews/add"
+                component={addReviewForm}
+              />
               <Route path="/me/orders" component={Orders} />
               {isAdmin && (
                 <Switch>
                   {/* Routes placed here are only available for admins after logging in */}
-                  <Route path="/home" component={AdminHome} />
+                  <Route exact path="/products/add" component={addProduct} />
+                  <Route
+                    exact
+                    path="/products/:id/edit"
+                    component={updateProduct}
+                  />
+                  <Route exact path="/users" component={UsersList} />
+                  <Route path="/categories/add" component={addCategory} />
+                  <Route path="/users/:id" component={singleUser} />
                   <Route path="/orders/:id" component={SingleOrder} />
                   <Route path="/orders" component={Orders} />
+                  <Route path="/home" component={AdminHome} />
                   <Route path="/" component={AdminHome} />
                 </Switch>
               )}

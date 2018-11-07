@@ -142,7 +142,7 @@ class Navbar extends React.Component {
                 </div>
               ) : (
                 <div className={classes.menuButtonContainer}>
-                  <Link to="/" className={classes.link}>
+                  <Link to="/me/orders" className={classes.link}>
                     <IconButton color="inherit">My Account</IconButton>
                   </Link>
                   <IconButton onClick={this.props.logout}>
