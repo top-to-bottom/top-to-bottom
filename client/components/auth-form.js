@@ -9,70 +9,122 @@ import {auth} from '../store'
 const AuthForm = props => {
   const {name, displayName, handleSubmit, error} = props
 
+  const formContainer = {
+    display: 'flex',
+    flex: 1,
+    flexDirection: 'column',
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginTop: 60
+  }
   if (name === 'login') {
     return (
-      <div>
-        <form onSubmit={handleSubmit} name={name}>
+      <div style={formContainer}>
+        <form
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column'
+          }}
+          onSubmit={handleSubmit}
+          name={name}
+        >
           <div>
-            <label htmlFor="email">
-              <small>Email</small>
+            <label className="auth-form-title" htmlFor="email">
+              Email
             </label>
-            <input name="email" type="text" />
+            <input className="auth-form-field" name="email" type="text" />
           </div>
           <div>
-            <label htmlFor="password">
-              <small>Password</small>
+            <label className="auth-form-title" htmlFor="password">
+              Password
             </label>
-            <input name="password" type="password" />
+            <input
+              className="auth-form-field"
+              name="password"
+              type="password"
+            />
           </div>
           <div>
-            <button type="submit">{displayName}</button>
+            <button className="auth-form-button" type="submit">
+              {displayName}
+            </button>
           </div>
-          {error && error.response && <div> {error.response.data} </div>}
+          {error &&
+            error.response && (
+              <div style={{marginTop: 15, color: 'red'}}>
+                {' '}
+                {error.response.data}{' '}
+              </div>
+            )}
         </form>
-        <a href="/auth/google">{displayName} with Google</a>
+        <a className="auth-form-button" href="/auth/google">
+          {displayName} with Google
+        </a>
       </div>
     )
   } else {
     return (
-      <div>
-        <form onSubmit={handleSubmit} name={name}>
+      <div style={formContainer}>
+        <form
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            flexDirection: 'column'
+          }}
+          onSubmit={handleSubmit}
+          name={name}
+        >
           <div>
-            <label htmlFor="firstName">
-              <small>First Name</small>
+            <label className="auth-form-title" htmlFor="firstName">
+              First Name
             </label>
-            <input name="firstName" type="text" />
+            <input className="auth-form-field" name="firstName" type="text" />
           </div>
           <div>
-            <label htmlFor="lastName">
-              <small>Last Name</small>
+            <label className="auth-form-title" htmlFor="lastName">
+              Last Name
             </label>
-            <input name="lastName" type="text" />
+            <input className="auth-form-field" name="lastName" type="text" />
           </div>
           <div>
-            <label htmlFor="username">
-              <small>User Name</small>
+            <label className="auth-form-title" htmlFor="username">
+              User Name
             </label>
-            <input name="username" type="text" />
+            <input className="auth-form-field" name="username" type="text" />
           </div>
           <div>
-            <label htmlFor="email">
-              <small>Email</small>
+            <label className="auth-form-title" htmlFor="email">
+              Email
             </label>
-            <input name="email" type="text" />
+            <input className="auth-form-field" name="email" type="text" />
           </div>
           <div>
-            <label htmlFor="password">
-              <small>Password</small>
+            <label className="auth-form-title" htmlFor="password">
+              Password
             </label>
-            <input name="password" type="password" />
+            <input
+              className="auth-form-field"
+              name="password"
+              type="password"
+            />
           </div>
           <div>
-            <button type="submit">{displayName}</button>
+            <button className="auth-form-button" type="submit">
+              {displayName}
+            </button>
           </div>
-          {error && error.response && <div> {error.response.data} </div>}
+          {error &&
+            error.response && (
+              <div style={{marginTop: 15, color: 'red'}}>
+                {' '}
+                {error.response.data}{' '}
+              </div>
+            )}
         </form>
-        <a href="/auth/google">{displayName} with Google</a>
+        <a className="auth-form-button" href="/auth/google">
+          {displayName} with Google
+        </a>
       </div>
     )
   }
@@ -107,17 +159,17 @@ const mapDispatch = dispatch => {
       evt.preventDefault()
       console.log('wtf is evt.target', evt.target)
       const formName = evt.target.name
-      if(formName === 'signup') {
+      if (formName === 'signup') {
         const firstName = evt.target.firstName.value
         const lastName = evt.target.lastName.value
         const username = evt.target.username.value.replace(' ', '')
         const email = evt.target.email.value
         const password = evt.target.password.value
         dispatch(auth(email, password, formName, firstName, lastName, username))
-      } else  {
-      const email = evt.target.email.value
-      const password = evt.target.password.value
-      dispatch(auth(email, password, formName))
+      } else {
+        const email = evt.target.email.value
+        const password = evt.target.password.value
+        dispatch(auth(email, password, formName))
       }
     }
   }
