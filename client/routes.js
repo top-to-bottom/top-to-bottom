@@ -22,11 +22,13 @@ import {
   addReviewForm,
   addCategory,
   SingleOrder,
-  Cart
+  Cart,
+  ElementCheckout
 } from './components'
 
 import {me} from './store'
 import {fetchUserCart} from './store/cart'
+import TestingEmail from './components/testing-email'
 
 /**
  * COMPONENT
@@ -46,6 +48,8 @@ class Routes extends Component {
         <Sidebar />
         <Switch>
           {/* Routes placed here are available to all visitors */}
+          <Route exact path="/testing-email" component={TestingEmail} />
+
           <Route path="/login" component={Login} />
           <Route path="/signup" component={Signup} />
           <Route exact path="/products" component={listProducts} />
@@ -61,6 +65,9 @@ class Routes extends Component {
           <Route exact path="/users" component={UsersList} />
           <Route path="/users/:id" component={singleUser} />
           <Route path="/cart" component={Cart} />
+
+          <Route path="/checkout" component={ElementCheckout} />
+
           <Route path="/categories/add" component={addCategory} />
 
           {isLoggedIn && (
@@ -82,6 +89,7 @@ class Routes extends Component {
           )}
 
           {/* Displays our Home component as a fallback */}
+          <Route path="/home" component={Home} />
           <Route path="/" component={Home} />
         </Switch>
       </React.Fragment>

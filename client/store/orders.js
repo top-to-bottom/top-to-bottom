@@ -3,12 +3,18 @@ import axios from 'axios'
 //TYPES
 
 const GET_ORDERS = 'GET_ORDERS'
+const ADD_ORDER = 'ADD_ORDER'
 
 //CREATORS
 
 const getOrders = orders => ({
   type: GET_ORDERS,
   orders
+})
+
+const addOrder = order => ({
+  type: ADD_ORDER,
+  order
 })
 
 //THUNK
@@ -18,12 +24,19 @@ export const fetchOrders = isMe => async dispatch => {
   dispatch(getOrders(orders))
 }
 
+export const createOrder = (address, cartId) => async dispatch => {
+  const {data: order} = await axios.post('/api/orders', {address, cartId})
+  dispatch(addOrder(order))
+}
+
 //REDUCER
 
 export default (state = [], action) => {
   switch (action.type) {
     case GET_ORDERS:
       return action.orders
+    case ADD_ORDER:
+      return [...state, action.order]
     default:
       return state
   }

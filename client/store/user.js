@@ -1,6 +1,6 @@
 import axios from 'axios'
 import history from '../history'
-import {addCartItems, fetchUserCart, setCartData} from './cart'
+import {addCartItems, fetchUserCart, emptyCart} from './cart'
 
 /**
  * ACTION TYPES
@@ -33,15 +33,41 @@ export const me = () => async dispatch => {
   }
 }
 
-export const auth = (email, password, method) => async (dispatch, getState) => {
+export const auth = (
+  email,
+  password,
+  formName,
+  firstName,
+  lastName,
+  username
+) => async (dispatch, getState) => {
   let res
   const state = getState()
   const currentCart = state.cart
   const currentCartData = currentCart.cartData || []
-  try {
-    res = await axios.post(`/auth/${method}`, {email, password})
-  } catch (authError) {
-    return dispatch(getUser({error: authError}))
+  if (formName === 'signup') {
+    try {
+      res = await axios.post(`/auth/${formName}`, {
+        firstName,
+        lastName,
+        username,
+        email,
+        password
+      })
+      await axios.post('/api/email/welcome', {
+        firstName,
+        username,
+        recipient: email
+      })
+    } catch (authError) {
+      return dispatch(getUser({error: authError}))
+    }
+  } else {
+    try {
+      res = await axios.post(`/auth/${formName}`, {email, password})
+    } catch (authError) {
+      return dispatch(getUser({error: authError}))
+    }
   }
 
   try {
@@ -63,7 +89,7 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
-    dispatch(setCartData({}))
+    dispatch(emptyCart())
     history.push('/login')
   } catch (err) {
     console.error(err)

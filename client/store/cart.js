@@ -6,6 +6,7 @@ import axios from 'axios'
 
 const SET_CART_DATA = 'SET_CART_DATA'
 const ADD_CART_ITEMS = 'ADD_CART_ITEMS'
+const EMPTY_CART = 'EMPTY_CART'
 
 /**
  * INITIAL STATE
@@ -29,6 +30,9 @@ export const addCartItems = items => {
     items
   }
 }
+export const emptyCart = () => ({
+  type: EMPTY_CART
+})
 
 /**
  * THUNK CREATORS
@@ -84,6 +88,8 @@ export default (state = initialCart, action) => {
         cartData: [...action.items, ...state.cartData]
       }
     }
+    case EMPTY_CART:
+      return {}
     default:
       return state
   }
