@@ -33,7 +33,7 @@ const Product = db.define('product', {
   secondaryImageUrl: {
     type: Sequelize.STRING,
     allowNull: false,
-    defaultValue: 'http://www.indiantradebird.in/images/noimage.jpg'
+    defaultValue: ''
   }
 })
 

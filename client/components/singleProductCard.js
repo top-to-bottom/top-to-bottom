@@ -15,10 +15,12 @@ import {connect} from 'react-redux'
 
 const styles = {
   card: {
-    maxWidth: 345
+    marginTop: 50,
+    width: '100%',
+    marginBottom: 50
   },
   media: {
-    objectFit: 'cover'
+    objectFit: 'contain'
   }
 }
 
@@ -31,7 +33,7 @@ const SingleProductCard = props => {
           component="img"
           alt={product.name}
           className={classes.media}
-          height="140"
+          height={500}
           image={product.defaultImageUrl}
           title={product.name}
         />
@@ -39,8 +41,8 @@ const SingleProductCard = props => {
           <CardMedia
             component="img"
             alt={product.name}
+            height={500}
             className={classes.media}
-            height="140"
             image={product.secondaryImageUrl}
             title={product.name}
           />

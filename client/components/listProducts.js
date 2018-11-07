@@ -27,6 +27,7 @@ class listProducts extends React.Component {
 
     return (
       // <React.Fragment>
+
       <div className="product-list">
         {products.map(product => {
           return (

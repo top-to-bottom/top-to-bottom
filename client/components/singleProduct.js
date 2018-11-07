@@ -20,7 +20,13 @@ class SingleProduct extends React.Component {
   render() {
     const {product} = this.props
     return (
-      <React.Fragment>
+      <React.Fragment
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          width: '100%'
+        }}
+      >
         <SingleProductCard product={product} />
       </React.Fragment>
     )
