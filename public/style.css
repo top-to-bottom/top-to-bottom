@@ -27,3 +27,18 @@ nav a {
   justify-content: space-around;
   margin-top: 50px;
 }
+
+.auth-form-title {
+  margin-bottom: 15px;
+  font-size: 15pt;
+}
+
+.auth-form-field {
+  margin-bottom: 15px;
+  font-size: 15pt;
+}
+
+.auth-form-button {
+  font-size: 15pt;
+  margin-bottom: 15px;
+}
