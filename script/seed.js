@@ -81,9 +81,11 @@ async function seed() {
       return product.addCategories(productCategories)
     }),
     Product.create({
-      name: 'Shoes',
-      description: 'A pair of shoes to wear on your feet.',
-      price: 2950
+      name: 'Tennis Shoes, size 8',
+      description: 'A pair of tennis shoes to wear on your feet.',
+      price: 2950,
+      defaultImageUrl:
+        'https://slimages.macysassets.com/is/image/MCY/products/6/optimized/9420856_fpx.tif?op_sharpen=1&wid=500&hei=613&fit=fit,1&$filtersm$'
     }).then(function(product) {
       const productCategories = [2]
       return product.addCategories(productCategories)
@@ -125,7 +127,9 @@ async function seed() {
       name: 'Men Cotton Gatsby ',
       description:
         'Flat Beret Cap Adjustable Knit Ivy Hat Golf Hunting Driving Cabbie HaMen Cotton Gatsby Flat Beret Cap Adjustable Knit Ivy Hat Golf Hunting Driving Cabbie Ha',
-      price: 3099
+      price: 3099,
+      defaultImageUrl:
+        'https://images-na.ssl-images-amazon.com/images/I/71Vh4RHv-SL._UX679_.jpg'
     }).then(function(product) {
       const productCategories = [1, 3]
       return product.addCategories(productCategories)

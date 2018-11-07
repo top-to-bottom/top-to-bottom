@@ -24,4 +24,6 @@ nav a {
   display: flex;
   flex-wrap: wrap;
   align-content: space-between;
+  justify-content: space-around;
+  margin-top: 50px;
 }
