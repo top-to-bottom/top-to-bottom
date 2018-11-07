@@ -1,5 +1,6 @@
 import axios from 'axios'
 import history from '../history'
+import {addCartItems, fetchUserCart, emptyCart} from './cart'
 
 /**
  * ACTION TYPES
@@ -39,8 +40,11 @@ export const auth = (
   firstName,
   lastName,
   username
-) => async dispatch => {
+) => async (dispatch, getState) => {
   let res
+  const state = getState()
+  const currentCart = state.cart
+  const currentCartData = currentCart.cartData || []
   if (formName === 'signup') {
     try {
       res = await axios.post(`/auth/${formName}`, {
@@ -67,7 +71,14 @@ export const auth = (
   }
 
   try {
-    dispatch(getUser(res.data))
+    const user = res.data
+    await dispatch(getUser(user))
+    if (currentCartData.length) {
+      dispatch(addCartItems(currentCartData))
+      await axios.put(`/api/users/associateCart/${user.id}`, currentCart)
+    }
+    await dispatch(fetchUserCart())
+
     history.push('/home')
   } catch (dispatchOrHistoryErr) {
     console.error(dispatchOrHistoryErr)
@@ -78,6 +89,7 @@ export const logout = () => async dispatch => {
   try {
     await axios.post('/auth/logout')
     dispatch(removeUser())
+    dispatch(emptyCart())
     history.push('/login')
   } catch (err) {
     console.error(err)

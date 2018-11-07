@@ -1,9 +1,11 @@
 import axios from 'axios'
+
 /**
  * ACTION TYPES
  */
 
 const SET_CART_DATA = 'SET_CART_DATA'
+const ADD_CART_ITEMS = 'ADD_CART_ITEMS'
 const EMPTY_CART = 'EMPTY_CART'
 
 /**
@@ -22,6 +24,12 @@ export const setCartData = cart => {
   }
 }
 
+export const addCartItems = items => {
+  return {
+    type: ADD_CART_ITEMS,
+    items
+  }
+}
 export const emptyCart = () => ({
   type: EMPTY_CART
 })
@@ -73,6 +81,12 @@ export default (state = initialCart, action) => {
   switch (action.type) {
     case SET_CART_DATA: {
       return action.cart
+    }
+    case ADD_CART_ITEMS: {
+      return {
+        ...state,
+        cartData: [...action.items, ...state.cartData]
+      }
     }
     case EMPTY_CART:
       return {}
