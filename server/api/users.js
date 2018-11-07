@@ -1,5 +1,5 @@
 const router = require('express').Router()
-const {User} = require('../db/models')
+const {User, Cart, CartData} = require('../db/models')
 module.exports = router
 
 router.get('/', async (req, res, next) => {
@@ -29,7 +29,16 @@ router.post('/', async (req, res, next) => {
 router.get('/:id', async (req, res, next) => {
   try {
     const id = req.params.id
-    const user = await User.findById(id, {attributes: ['id', 'email', 'imageUrl', 'firstName', 'lastName', 'isAdmin']})
+    const user = await User.findById(id, {
+      attributes: [
+        'id',
+        'email',
+        'imageUrl',
+        'firstName',
+        'lastName',
+        'isAdmin'
+      ]
+    })
     res.json(user)
   } catch (error) {
     next(error)
@@ -52,6 +61,27 @@ router.delete('/:id', async (req, res, next) => {
     const id = req.params.id
     await User.destroy({where: {id}})
     res.sendStatus(204)
+  } catch (error) {
+    next(error)
+  }
+})
+
+router.put('/associateCart/:userId', async (req, res, next) => {
+  try {
+    const userId = req.params.userId
+    const oldCart = req.body
+    const loggedInUserCart = await Cart.findOne({
+      where: {userId: userId},
+      include: [{model: CartData}]
+    })
+    const cartDataArray = await CartData.findAll({
+      where: {
+        cartId: oldCart.id
+      }
+    })
+    loggedInUserCart.addCartData(cartDataArray)
+    const newCart = await loggedInUserCart.save()
+    res.status(201).send(newCart)
   } catch (error) {
     next(error)
   }

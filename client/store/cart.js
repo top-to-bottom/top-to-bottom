@@ -81,7 +81,7 @@ export default (state = initialCart, action) => {
     case ADD_CART_ITEMS: {
       return {
         ...state,
-        cartData: [...state.cartData, ...action.items]
+        cartData: [...action.items, ...state.cartData]
       }
     }
     default:
