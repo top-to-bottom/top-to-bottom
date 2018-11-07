@@ -64,7 +64,6 @@ router.post('/', async (req, res, next) => {
     const cart = await Cart.findById(cartId)
     const addressOnDB = await Address.findOrCreate({where: address})
     const {order} = await Order.fromCart(addressOnDB, cart)
-    console.log('ORDER IN ORDERS API ROUTES', order)
     res.json(order)
   } catch (error) {
     next(error)

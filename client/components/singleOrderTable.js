@@ -53,27 +53,30 @@ function CustomizedTable(props) {
           </TableRow>
         </TableHead>
         <TableBody>
-          {order.orderData.map(orderData => {
-            return (
-              <TableRow className={classes.row} key={orderData.id}>
-                <CustomTableCell component="th" scope="row">
-                  <Link to={`/products/${orderData.product.id}`}>
-                    {' '}
-                    {orderData.product.name}
-                  </Link>
-                </CustomTableCell>
-                <CustomTableCell numeric>{orderData.quantity}</CustomTableCell>
-                <CustomTableCell numeric>
-                  {numeral(orderData.price / 100).format('$0,0.00')}
-                </CustomTableCell>
-                <CustomTableCell numeric>
-                  {numeral(orderData.price / 100 * orderData.quantity).format(
-                    '$0,0.00'
-                  )}
-                </CustomTableCell>
-              </TableRow>
-            )
-          })}
+          {order.orderData &&
+            order.orderData.map(orderData => {
+              return (
+                <TableRow className={classes.row} key={orderData.id}>
+                  <CustomTableCell component="th" scope="row">
+                    <Link to={`/products/${orderData.product.id}`}>
+                      {' '}
+                      {orderData.product.name}
+                    </Link>
+                  </CustomTableCell>
+                  <CustomTableCell numeric>
+                    {orderData.quantity}
+                  </CustomTableCell>
+                  <CustomTableCell numeric>
+                    {numeral(orderData.price / 100).format('$0,0.00')}
+                  </CustomTableCell>
+                  <CustomTableCell numeric>
+                    {numeral(orderData.price / 100 * orderData.quantity).format(
+                      '$0,0.00'
+                    )}
+                  </CustomTableCell>
+                </TableRow>
+              )
+            })}
           <TableRow>
             <CustomTableCell component="th" scope="row">
               Total
@@ -81,12 +84,14 @@ function CustomizedTable(props) {
             <CustomTableCell numeric />
             <CustomTableCell numeric />
             <CustomTableCell numeric>
-              {numeral(
-                order.orderData.reduce(
-                  (accum, curre) => accum + curre.quantity * curre.price / 100,
-                  0
-                )
-              ).format('$0,0.00')}
+              {order.orderData &&
+                numeral(
+                  order.orderData.reduce(
+                    (accum, curre) =>
+                      accum + curre.quantity * curre.price / 100,
+                    0
+                  )
+                ).format('$0,0.00')}
             </CustomTableCell>
           </TableRow>
         </TableBody>

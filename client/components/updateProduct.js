@@ -117,10 +117,6 @@ export class updateProduct extends Component {
   }
 
   render() {
-    console.log('PROPS IN UPDATE PRODUCT', this.props)
-
-    console.log('STATE IN UPDATE PRODUCT:', this.state)
-
     const {classes, categories} = this.props
 
     if (this.state.id !== undefined) {
