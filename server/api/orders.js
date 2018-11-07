@@ -58,13 +58,13 @@ router.get('/:id', isAdminMW, async (req, res, next) => {
     next(error)
   }
 })
-
 router.post('/', async (req, res, next) => {
   try {
     const {address, cartId} = req.body
     const cart = await Cart.findById(cartId)
     const addressOnDB = await Address.findOrCreate({where: address})
     const {order} = await Order.fromCart(addressOnDB, cart)
+    console.log('ORDER IN ORDERS API ROUTES', order)
     res.json(order)
   } catch (error) {
     next(error)
