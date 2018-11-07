@@ -1,6 +1,10 @@
 import React, {Component} from 'react'
 import {connect} from 'react-redux'
-import {createCategory, allCategories, deleteCategory} from '../store/categories'
+import {
+  createCategory,
+  allCategories,
+  deleteCategory
+} from '../store/categories'
 import PropTypes from 'prop-types'
 import {withStyles} from '@material-ui/core/styles'
 import TextField from '@material-ui/core/TextField'
@@ -32,7 +36,7 @@ function mapDispatch(dispatch) {
   return {
     fetch: () => dispatch(allCategories()),
     submit: category => dispatch(createCategory(category)),
-    delete: id => dispatch(deleteCategory(id)),
+    delete: id => dispatch(deleteCategory(id))
   }
 }
 
@@ -56,10 +60,9 @@ export class addCategory extends Component {
     }
   }
 
-  async handleDelete(event)  {
+  async handleDelete(event) {
     event.preventDefault()
-    if(confirm('Are you sure you want to delete this category?')) {
-      console.log('UGH', event.target.value)
+    if (confirm('Are you sure you want to delete this category?')) {
       await this.props.delete(Number(event.target.value))
       this.props.history.push(`/categories/add`)
     }
@@ -70,9 +73,6 @@ export class addCategory extends Component {
   }
 
   render() {
-
-    console.log('PROPS IN ADD CATEGORY', this.props)
-
     const {classes} = this.props
 
     if (this.props.categories) {
@@ -92,7 +92,7 @@ export class addCategory extends Component {
                     <button
                       value={category.id}
                       style={{marginLeft: 10}}
-                      onClick={(event) => this.handleDelete(event)}
+                      onClick={event => this.handleDelete(event)}
                     >
                       X
                     </button>

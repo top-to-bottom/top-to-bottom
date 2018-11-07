@@ -157,7 +157,6 @@ const mapDispatch = dispatch => {
   return {
     handleSubmit(evt) {
       evt.preventDefault()
-      console.log('wtf is evt.target', evt.target)
       const formName = evt.target.name
       if (formName === 'signup') {
         const firstName = evt.target.firstName.value

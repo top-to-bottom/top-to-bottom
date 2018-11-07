@@ -27,8 +27,6 @@ const styles = {
 
 const SingleProductCard = props => {
   const {classes, product} = props
-
-  console.log('ALL PROPS', props)
   return (
     <Card className={classes.card}>
       <CardActionArea>
@@ -103,10 +101,10 @@ const SingleProductCard = props => {
         </CardContent>
       </CardActionArea>
       <CardActions>
-        <Link to={`/products/${props.product.id}/reviews/add`} >
-        <Button size="small" color="primary">
-          Review
-        </Button>
+        <Link to={`/products/${props.product.id}/reviews/add`}>
+          <Button size="small" color="primary">
+            Review
+          </Button>
         </Link>
         <Button
           size="small"

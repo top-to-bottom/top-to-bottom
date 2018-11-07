@@ -13,8 +13,6 @@ export class singleUser extends Component {
     this.setState(this.props.user)
   }
   render() {
-    console.log('PROPS:', this.props)
-
     const user = this.props.user
 
     const makeUserAdmin = async newAdminUser => {

@@ -5,7 +5,6 @@ const Product = require('../db/models/product')
 module.exports = router
 
 router.post('/welcome', async (req, res, next) => {
-  console.log('REQ.BODY IN POST /welcome', req.body)
   const transporter = nodemailer.createTransport({
     service: 'gmail',
     auth: {
@@ -36,8 +35,6 @@ router.post('/welcome', async (req, res, next) => {
 })
 
 router.post('/order-confirmation', async (req, res, next) => {
-  console.log('REQ.BODY IN POST /welcome', req.body)
-
   const orderData = await OrderData.findAll({
     where: {orderId: req.body.id},
     include: {model: Product}
